@@ -45,7 +45,7 @@ html(lang="en")
                         p#statusMessage
                         button#tryAgainButton Try Again
         main
-            section.wrapper
+            section#service.wrapper
                 .service.section-head
                     h2 Services
                     span.line
@@ -73,7 +73,7 @@ html(lang="en")
                             p.personal Expert Support
                             p.description Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit. Lorem ipsum.
 
-            section.about-us-bg
+            section#about.about-us-bg
                 .wrapper
                     .about-us.section-head
                         h2 About us
@@ -94,7 +94,7 @@ html(lang="en")
                                 +cardWorkers(workers.workers4)
                         button#prevBtn.btn-carousel.left
                         button#nextBtn.btn-carousel.right
-            section.wrapper 
+            section#works.wrapper 
                 .work.section-head
                     h2 Latest Works
                     span.line
@@ -109,11 +109,11 @@ html(lang="en")
                     +cardMenu(cardBlock.table)
                     +cardMenu(cardBlock.canceliaria)
                     +cardMenu(cardBlock.events)
-            section 
+            section#blog
                 .progect-talk.d-flex
                     .paralax-image
                     p Do you like OUR WORK so far? Let's talk about YOUR PROJECT!
-                    a.get-touch.cta(href="#")  Get in Touch
+                    a.get-touch.cta.nav-menu(href="#contacts" data-href="#contacts")  Get in Touch
                 .blog.section-head
                     h2 Recent blog posts
                     span.line
@@ -124,7 +124,7 @@ html(lang="en")
                     hr
                     a(href="#").user
                         +blogCard(blog.user)
-            section.partner-section.section-head
+            section#clients.partner-section.section-head
                 .partner.d-flex.wrapper
                     .deorham.partner-img
                         picture 
@@ -142,24 +142,24 @@ html(lang="en")
                         picture 
                             img(src="img/womgify.svg", alt="") 
                 .coments
-                    p.coment#coment-main 
+                    p.coment.active#coment-main 
                         i Hvaing placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum”
                         span John Doe, Google Inc.
-                    p.coment-two#comentTwo 
-                        i Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, pariatur.”
+                    p.coment#comentTwo 
+                        i Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, pariatur.Lorem ipsum dolor sit amet. pariatur.Lorem ipsum dolor sit amet”
                         span Alina, Google Inc.
-                    p.coment-second#comentSecond 
+                    p.coment#comentSecond 
                         i Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias saepe dolores quos vitae quas recusandae.”
                         span Zavorotna, Google Inc.
                     .d-flex.circle-button-block
                         form(action="") 
-                            input.input-coment(type="radio" id="coment1" name="radio-coment")
+                            input.input-coment(type="radio" id="coment1" name="radio-coment" value="coment-main" checked)
                             label.circle-btn(for="coment1") 
-                            input.input-coment(type="radio" id="coment2" name="radio-coment")
+                            input.input-coment(type="radio" id="coment2" name="radio-coment" value="comentTwo")
                             label.circle-btn(for="coment2") 
-                            input.input-coment(type="radio" id="coment3" name="radio-coment")
+                            input.input-coment(type="radio" id="coment3" name="radio-coment" value="comentSecond")
                             label.circle-btn(for="coment3") 
-            section 
+            section#contacts 
                 .section-head
                     h2 Get in touch
                     span.line

@@ -7,6 +7,7 @@ body
     padding: 0
     font-family: 'Montserrat'
     overflow-x: hidden
+    scroll-behavior: smooth
 
 ul
     li
@@ -349,8 +350,10 @@ textarea
 .circle.active 
     background-color: #c0301c
         
-.circle.active svg path 
-    fill: #fff
+.circle.active 
+    svg 
+        path 
+            fill: #fff
 
 
 .personal
@@ -655,7 +658,9 @@ textarea
         transform: translate(-50%, -50%)
 
 .coments
+    position: relative
     width: 100%
+    min-height: 145rem
     display: flex
     flex-direction: column
     justify-content: center
@@ -664,6 +669,7 @@ textarea
     text-align: center
 
 .coment
+    position: absolute
     max-width: 763rem
     font-size: 18rem
     line-height: 1.7em
@@ -671,17 +677,26 @@ textarea
     font-weight: 400
     font-family: "Roboto Slab"
     text-align: center
+    opacity: 0
+    transition: opacity 0.5s ease
     span
         padding-top: 43rem
         display: block
+
+.coment.active 
+    opacity: 1
 
 .coment-two,
 .coment-second
     display: none
 
 .circle-button-block
-    padding-top: 39rem
+    position: absolute
+    top: 50%
+    left: 50%
+    padding-top: 79rem
     column-gap: 5rem
+    transform: translateX(-50%)
 
 .input-coment
     display: none

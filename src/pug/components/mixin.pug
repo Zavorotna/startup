@@ -1,15 +1,15 @@
 -
     let mainMenu = [
-            ["Home", "#"],
-            ["Services", "#"],
-            ["About", "#"],
-            ["Works", "#"],
-            ["Blog", "#"],
-            ["Clients", "#"],
-            ["Contact", "#"],
+            ["Home", "index.html"],
+            ["Services", "#service"],
+            ["About", "#about"],
+            ["Works", "#works"],
+            ["Blog", "#blog"],
+            ["Clients", "#clients"],
+            ["Contact", "#contacts"],
         ]
 mixin menu(mainMenu)
-    .navigation.d-flex
+    .navigation.d-flex.fixed
         .logo 
             a(href="index.html")
                 p.name-company Startup
@@ -17,7 +17,7 @@ mixin menu(mainMenu)
             ul.menu.d-flex
                 for item in mainMenu 
                     li.nav-list 
-                        a.nav-menu(href=item[1]) #{item[0]}
+                        a.nav-menu(href=item[1] data-href=item[1]) #{item[0]}
         
 - 
     let workers = {

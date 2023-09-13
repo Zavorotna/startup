@@ -56,6 +56,43 @@ window.addEventListener('load', function(){
       this.classList.toggle('active'),
       mobileMenu.classList.toggle('activemobile')
     })
+  // скролл до секцій
+  const navLinks = [...document.querySelectorAll(".nav-menu")]
+
+  navLinks.forEach(item => {
+      item.addEventListener("click", evt => {
+          evt.preventDefault()
+
+          let id = evt.target.getAttribute("data-href"),
+              targetSection = document.querySelector(id),
+              targetOffset = targetSection.offsetTop + 40
+              
+          if (id) {
+              let stopScroll = function stopScroll() {
+                  clearInterval(interval)
+                  window.removeEventListener("click", stopScroll)
+                  window.removeEventListener("mousewheel", stopScroll)
+                  window.removeEventListener("contextmenu", stopScroll)
+                  console.log("stop")
+              }
+              const interval = setInterval(() => {
+                  window.addEventListener("click", stopScroll)
+                  window.addEventListener("mousewheel", stopScroll)
+                  window.addEventListener("contextmenu", stopScroll)
+                  const remainingDistance = targetOffset - window.scrollY,
+                  scrollStep = remainingDistance * 0.1,
+                  tolerance = 1
+  
+                  if (Math.abs(remainingDistance) <= tolerance || Math.abs(scrollStep) <= tolerance) {
+                      clearInterval(interval)
+                  } else {
+                      window.scrollBy(0, scrollStep)
+                  }
+              }, 30)
+          }
+          
+      })
+  })
 
   //карусель працівників  
   const carousel = document.querySelector('.carousel'),
@@ -185,6 +222,20 @@ window.addEventListener('load', function(){
                 heading.style.color = '#c0301c'
             }
           })
+    })
+  // зміна коментарів на радіокнопки
+  const radioButtons = document.querySelectorAll('input[name="radio-coment"]'),
+    comments = document.querySelectorAll('.coment')
+    radioButtons.forEach((radioButton) => {
+        radioButton.addEventListener('change', () => {
+            const selectedCommentId = radioButton.value,
+              selectedComment = document.getElementById(selectedCommentId)
+
+            comments.forEach((comment) => {
+                comment.classList.remove('active')
+            })
+            selectedComment.classList.add('active')
+        })
     })
 })  
 
