@@ -338,16 +338,19 @@ textarea
     border-radius: 50%
     border: 2rem solid #dddddd
     background-color: #fff
-    &:hover
-        background-color: #c0301c
-    &:hover > svg:hover
-        fill: #fff
+    transition: all 1s ease
     svg
         position: absolute
         top: 50%
         left: 50%
         fill: #c0301c
         transform: translate(-50%, -50%)
+
+.circle.active 
+    background-color: #c0301c
+        
+.circle.active svg path 
+    fill: #fff
 
 
 .personal

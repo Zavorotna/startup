@@ -107,8 +107,8 @@ window.addEventListener('load', function(){
       console.log(index)
       clickBlock.addEventListener('click', function(){
 
-        redBlock[index].classList.toggle("active-red");
-        textBlock[index].classList.toggle("active-text");
+        redBlock[index].classList.toggle("active-red")
+        textBlock[index].classList.toggle("active-text")
       
       })
 
@@ -164,12 +164,27 @@ window.addEventListener('load', function(){
         authPopup.style.display = "block"
     })
   })
-})
+
+  //сервіси зміна тексту і стилю
+    const cardFigures = document.querySelectorAll('.card-figure')
+      cardFigures.forEach((cardFigure) => {
+          const circle = cardFigure.querySelector('.circle'),
+            heading = cardFigure.querySelector('p.personal')
   
-
-
-
-
-
-
+          circle.addEventListener('click', () => {
+            if (circle.classList.contains('active')) {
+              circle.classList.remove('active');
+              heading.textContent = 'Clean Typography';
+              heading.style.fontWeight = 'normal';
+              heading.style.color = 'initial';
+            } else {
+                // Увімкніть зміни, додавши клас "active"
+                circle.classList.add('active');
+                heading.textContent = 'Hack This Site'
+                heading.style.fontWeight = 'bold'
+                heading.style.color = '#c0301c'
+            }
+          })
+    })
+})  
 
