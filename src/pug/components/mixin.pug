@@ -1,0 +1,211 @@
+-
+    let mainMenu = [
+            ["Home", "#"],
+            ["Services", "#"],
+            ["About", "#"],
+            ["Works", "#"],
+            ["Blog", "#"],
+            ["Clients", "#"],
+            ["Contact", "#"],
+        ]
+mixin menu(mainMenu)
+    .navigation.d-flex
+        .logo 
+            a(href="index.html")
+                p.name-company Startup
+        nav.flex-nav
+            ul.menu.d-flex
+                for item in mainMenu 
+                    li.nav-list 
+                        a.nav-menu(href=item[1]) #{item[0]}
+        
+- 
+    let workers = {
+        workers1: {
+            img: "img/khail.webp",
+            alt: "Md. Khalil Uddin",
+            name: "Md. Khalil Uddin",
+            work: "Head of Ideas",
+        },
+        workers2: {
+            img: "img/rubel.webp",
+            alt: "Rubel Miah",
+            name: "Rubel Miah",
+            work: "Lead WordPress Developer",
+        },
+        workers3: {
+            img: "img/shamim.webp",
+            alt: "Shamim Mia",
+            name: "Shamim Mia",
+            work: "Sr. Web Developer",
+        },
+        workers4: {
+            img: "img/john.webp",
+            alt: "John Doe",
+            name: "John Doe",
+            work: "Front-end Developer",
+        }
+    }
+
+mixin cardWorkers(workers)
+    figure.figure-workers 
+        figcaption 
+            img.worker-img(src=workers.img, alt=workers.alt class="img") 
+            p.name-worker #{workers.name}
+            p.work #{workers.work}
+
+-
+    let workMenu = [
+            ["All", "#"],
+            ["Branding", "#"],
+            ["Design", "#"],
+            ["Development", "#"],
+            ["Strategy", "#"],
+        ]
+mixin menuWork(workMenu)
+    nav.work-nav.d-flex
+        ul.menu-work.d-flex
+            for item in workMenu 
+                li  
+                    a(href=item[1]) #{item[0]}
+
+-
+    let cardBlock = {
+        hair: {
+            img: "img/hair.webp",
+            alt: "hair",
+            head: "Hair Dresser",
+            descript: "Branding",
+            cta: "View",
+            href: "#",
+        },
+        bird: {
+            img: "img/bird.webp",
+            alt: "bird",
+            head: "Hope",
+            descript: "Branding",
+            cta: "View",
+            href: "#",
+        },
+        notebook: {
+            img: "img/notebook.webp",
+            alt: "notebook",
+            head: "Work place",
+            descript: "Work place",
+            cta: "View",
+            href: "#",
+        },
+        photo: {
+            img: "img/photo.webp",
+            alt: "photo",
+            head: "Photo",
+            descript: "Branding",
+            cta: "View",
+            href: "#",
+        },
+        bycicle: {
+            img: "img/bycicle.webp",
+            alt: "bycicle",
+            head: "Bycicle",
+            descript: "Branding",
+            cta: "View",
+            href: "#",
+        },
+        note: {
+            img: "img/note.webp",
+            alt: "note",
+            head: "Work place",
+            descript: "Branding",
+            cta: "View",
+            href: "#",
+        },
+        table: {
+            img: "img/table.webp",
+            alt: "table",
+            head: "Work place",
+            descript: "Branding",
+            cta: "View",
+            href: "#",
+        },
+        canceliaria: {
+            img: "img/canceliaria.webp",
+            alt: "cancelaria",
+            head: "Work",
+            descript: "Branding",
+            cta: "View",
+            href: "#",
+        },
+        events: {
+            img: "img/events.webp",
+            alt: "events",
+            head: "Events",
+            descript: "Branding",
+            cta: "View",
+            href: "#",
+        }
+
+    }
+
+mixin cardMenu(cardBlock) 
+    figure
+        figcaption.img-cards
+            picture
+                img(src=cardBlock.img, alt=cardBlock.alt class="card-block-img")
+            .click-block
+            .d-flex.text-block
+                h2.head-block #{cardBlock.head}
+                p.descript-block #{cardBlock.descript}
+                p.cta-viev 
+                    a.cta-block(href=cardBlock.href) #{cardBlock.cta}
+
+-
+    let blog = {
+        startup: {
+            img: "img/workplace.png",
+            alt: "workplace",
+            date: "18",
+            month: " Oct",
+            head: "Startup ideas needs to be funded",
+            nameRecent: "By",
+            redName: " Khalil",
+            secondName: " Uddin in",
+            lastName: " Development",
+            description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod teduntlabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et erebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit am Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidulabore et dolore aliquyam erat, sed diam ",
+            btn: "Read more",
+            href: "#",
+        },
+        user: {
+            img: "img/table.png",
+            alt: "table",
+            date: "18",
+            month: " Oct",
+            head: "Startup ideas needs to be funded",
+            nameRecent: "By",
+            redName: " Khalil",
+            secondName: " Uddin in",
+            lastName: " Development",
+            description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod teduntlabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et erebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit am Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidulabore et dolore aliquyam erat, sed diam ",
+            btn: "Read more",
+            href: "#",
+        },
+    }
+
+mixin blogCard(blog)
+    .d-flex.blog-card
+        .img.startup 
+            picture 
+                img(src=blog.img, alt=blog.alt)
+        .descript-startup 
+            .d-flex.name-flex
+                .date 
+                    p #{blog.date}
+                        span #{blog.month}
+                .head-startup 
+                    p.head-name #{blog.head}
+                    p.name-recent #{blog.nameRecent} 
+                        span.red #{blog.redName}
+                        span.normal #{blog.secondName}
+                        span.red #{blog.lastName}
+            .text-startup 
+                p.description #{blog.description}
+                a.btn(href=blog.href) #{blog.btn}

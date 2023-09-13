@@ -1,0 +1,873 @@
+@import components/mixin
+html
+    font-size: 1px
+
+body
+    margin: 0
+    padding: 0
+    font-family: 'Montserrat'
+    overflow-x: hidden
+
+ul
+    li
+        list-style: none
+a
+    text-decoration: none
+
+p
+    margin: 0
+
+h1
+    margin: 0
+    padding: 30rem 0 40rem
+    font-size: 18rem
+    font-family: 'Roboto Slab'
+    text-transform: uppercase
+    color: #fff
+    font-weight: 400
+    text-align: center
+
+section
+    padding: 0 0 100rem
+
+h2 
+    margin: 0
+    padding-bottom: 60rem
+    font-size: 20rem
+    line-height: 1.1em
+    font-weight: 400
+    color: #555555
+    text-transform: uppercase
+    text-align: center
+
+hr
+    margin: 30rem 0
+    border: none
+    border-top: 1px solid #dddddd
+
+figure
+    margin: 0
+
+input,
+textarea
+    width: 100%
+    padding: 15rem
+    font-size: 12rem
+    line-height: 1.7em
+    text-transform: uppercase
+    color: #555
+    font-weight: 400
+    font-family: "Roboto Slab"
+    appearance: none
+    outline: none
+    border: none
+    border: 1px solid #555
+    &:focus
+        border: 1px solid #c0301c
+
+textarea 
+    max-width: 700rem
+    min-height: 105rem
+    max-height: 250rem
+
+.d-flex
+    display: flex
+    justify-content: space-between
+
+.wrapper-mobile
+    margin: 0 15rem
+    +media(769)
+        margin: 0
+
+
+.wrapper
+    position: relative
+    z-index: 1
+    +media(769)
+        margin: 0 auto
+        max-width: 1140rem
+
+.opacity-bg
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 100%
+    background-color: #000
+    opacity: 0.451
+    z-index: 1
+
+.parallax-header 
+    position: relative
+
+.parallax-bg 
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 100%
+    background: url(../img/startup-hero-bg.jpg) no-repeat
+    background-position: center
+    background-size: cover
+    
+
+.navigation
+    padding-top: 40rem
+    flex-direction: column
+    align-items: center
+    row-gap: 20rem
+    +media(769)
+        flex-direction: row
+        align-items: flex-start
+
+.name-company
+    font-size: 24rem
+    line-height: 1.5em
+    color: #fff
+    font-weight: 700
+
+.decstop-menu 
+    display: none
+    +media(769)
+        display: block
+
+.menu
+    padding: 0
+    flex-direction: column
+    row-gap: 20rem
+    align-items: center
+    +media(768)
+        flex-direction: row
+        column-gap: 40rem
+        align-items: center
+
+.nav-menu
+    position: relative
+    display: inline-block
+    padding: 6rem 0
+    font-size: 14rem
+    line-height: 1.7em
+    color: #fff
+    font-weight: 400
+    &::after 
+        content: ""
+        position: absolute
+        top: 12rem
+        left: 0
+        display: inline-block
+        height: 1em
+        width: 100%
+        border-bottom: 1px solid #fff
+        margin-top: 10px
+        opacity: 0
+        transition: all 1s ease
+        transform: scale(0,1)
+    &:hover::after 
+        opacity: 1
+        transform: scale(1)
+
+.burger-logo
+    padding-top: 20rem
+    align-items: center
+    +media(769)
+        display: none
+
+.mobile
+    position: fixed
+    top: -100%
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: #af4f37
+    transition: all 1s ease
+    z-index: 2
+    li
+        margin: 0
+    +media(769)
+        display: none
+
+.activemobile
+    top: 0
+
+.burger
+    position: relative
+    display: block
+    margin: 0 25rem
+    padding: 20rem 0
+    width: 30rem
+    height: 30rem
+    z-index: 3
+    cursor: pointer
+    +media(769)
+        display: none
+.burger-fix
+    position: fixed
+    top: 0
+    right: 0
+
+.bord
+    display: block
+    background-color: #fff
+    padding: 5куь
+    width: 100%
+    height: 2rem 
+    box-shadow: 0 0 5rem 2rem #af4f37
+    z-index: 5
+    &::before,
+    &::after
+        position: absolute
+        content: ""
+        background-color: #fff
+        width: 100%
+        height: 2rem 
+        box-shadow: 0 0 5rem 2rem #af4f37
+        z-index: 5
+
+.bord
+    &::before
+        top: 32rem
+        right: 0
+    &::after
+        right: 0
+        bottom: 22rem
+
+.active
+    padding: 0
+    .bord
+        background-color: transparent   
+        box-shadow: 0 0 0 0
+        &::before
+            top: 28rem
+            transform: rotate(45deg)
+        &::after
+            bottom: 0
+            transform: rotate(-45deg)
+                
+.start-info
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    padding: 265rem 0
+
+.popup 
+    display: none
+    width: 300rem
+    height: 250rem
+    background-color: #f2f2f2
+    padding: 20rem
+    position: absolute
+    top: 50%
+    left: 50%
+    border: 1rem solid #ccc
+    transform: translate(-50%, -50%)
+
+.drag-area 
+    display: flex
+    justify-content: space-between
+    margin-bottom: 20rem
+
+.block 
+    width: 80rem
+    height: 80rem
+    font-size: 14rem
+    background-color: #d12525
+    color: #fff
+    text-align: center
+    line-height: 80rem
+    cursor: grab
+
+.block-place
+    width: 80rem
+    height: 80rem
+    border: 1px solid #d12525
+
+.block:active 
+    cursor: grabbing
+
+.welcome-text
+    font-size: 48rem
+    text-transform: uppercase
+    color: #fff
+    font-weight: 400
+    text-align: center
+
+.cta
+    position: relative
+    max-width: 180rem
+    padding: 11rem 32rem
+    font-size: 16rem
+    line-height: 1.5em
+    text-transform: uppercase
+    color: #fff
+    font-weight: 400
+    text-align: center
+    border-radius: 2rem
+    border: 2rem solid #fff
+
+.section-head
+    position: relative
+    padding: 100rem 0 73rem
+    p 
+        margin: 0
+        font-size: 16rem
+        line-height: 1.5em
+        color: #555555
+        font-family: "Roboto Slab"
+        text-align: center
+
+.line
+    position: absolute
+    top: 53%
+    left: 50%
+    width: 50rem
+    background-color: #555
+    border-top: 2rem solid #555
+    transform: translateX(-50%)
+
+.service-description
+    padding-top: 69rem
+
+.card-figure
+    flex-direction: column
+    align-items: center
+
+.circle
+    position: relative
+    width: 90rem
+    height: 90rem
+    border-radius: 50%
+    border: 2rem solid #dddddd
+    background-color: #fff
+    &:hover
+        background-color: #c0301c
+    &:hover > svg:hover
+        fill: #fff
+    svg
+        position: absolute
+        top: 50%
+        left: 50%
+        fill: #c0301c
+        transform: translate(-50%, -50%)
+
+
+.personal
+    padding: 30rem 0
+
+.personal,
+.description
+    font-size: 14rem
+    line-height: 1.7em
+    text-transform: uppercase
+    color: #555
+    font-weight: 400
+    text-align: center
+
+.description
+    font-family: "Roboto Slab"
+    text-transform: none
+
+.about-us-bg
+    background-color: #f8f8f8
+
+.about-us-info
+    column-gap: 32rem
+    row-gap: 32rem
+
+.info-block
+    padding: 70rem 0
+    font-size: 14rem
+    line-height: 1.7em
+    color: #555555
+    font-weight: 400
+    font-family: "Roboto Slab"
+
+.carousel-container
+    width: 100%
+    margin: 0 auto
+    text-align: center
+    position: relative
+    overflow: hidden
+
+
+.carousel
+    transition: transform 0.5s
+    column-gap: 30rem
+
+.figure-workers
+    margin: 0
+    
+.worker-img
+    position: relative
+
+.name-worker
+    padding: 21rem 0 15rem
+    font-size: 14rem
+    line-height: 1.7em
+    text-transform: uppercase
+    color: #555555
+    font-family: "Montserrat"
+    text-align: center
+
+.work
+    font-size: 13rem
+    line-height: 1.7em
+    color: #555555
+    font-weight: 400
+    font-family: "Roboto Slab"
+    text-align: center
+
+.btn-carousel
+    position: absolute
+    top: 39%
+    width: 36rem
+    height: 36rem
+    background-color: #555
+    border: none
+    opacity: 0.2
+    transform: translateY(-50%)
+    cursor: pointer
+
+.left
+    left: 0
+.right
+    right: 0
+
+.work-nav
+    width: 100%
+    align-items: center
+    justify-content: center
+
+.menu-work
+    column-gap: 30rem
+    a
+        font-size: 16rem
+        line-height: 1.5em
+        color: #555
+        font-weight: 400
+        font-family: "Roboto Slab"
+        transition: all .5s ease
+        &:hover
+            color: #c0301c
+
+.brands 
+    flex-wrap: wrap
+    column-gap: 30rem
+    row-gap: 30rem
+
+.img-cards 
+    position: relative
+    max-height: 320rem
+    
+
+.click-block
+    display: none
+    position: absolute
+    width: 100%
+    height: 100%
+    background-color: #c0301c
+    top: 0
+    left: 0
+    opacity: 0.7
+    z-index: 3
+
+.active-red
+    display: block
+
+.text-block
+    display: none
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    z-index: 3
+
+.active-text
+    display: flex
+
+.head-block
+    padding: 0 0 16rem
+    font-size: 18rem
+    line-height: 1.33em
+    color: #fff
+    font-weight: 400
+    text-align: center
+    text-transform: none
+
+.descript-block
+    padding-bottom: 27rem
+    font-size: 12rem
+    line-height: 2em
+    color: #ffffff
+    font-weight: 400
+    font-family: "Roboto Slab"
+    text-align: center
+        
+.cta-block
+    position: relative
+    display: inline-block
+    padding: 8rem 32rem 8rem 21rem
+    font-size: 14rem
+    line-height: 1.7em
+    text-transform: uppercase
+    background-color: #fff
+    color: #c0301c
+    font-weight: 400
+    font-family: "Roboto Slab"
+    &::before
+        position: absolute
+        content: ""
+        top: 50%
+        right: 18rem
+        width: 8rem
+        height: 8rem
+        border-top: 1rem solid #c0301c
+        border-left: 1px solid #c0301c
+        transform: translateY(-50%) rotate(135deg)
+
+.progect-talk
+    position: relative
+    padding: 100rem 0
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    z-index: 3
+    p
+        position: relative
+        padding-bottom: 72rem
+        max-width: 454rem
+        font-size: 30rem
+        line-height: 1.5em
+        color: #ffffff
+        font-weight: 400
+        font-family: "Roboto Slab"
+        text-align: center
+
+.paralax-image
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 100%
+    height: 100%
+    background: url("../img/progecttalk.png") no-repeat center/150%
+    transform-origin: center
+    
+
+.get-touch
+    transition: all 1s ease
+    &:hover
+        transform: scale(1.1)
+
+// .blog
+//     padding: 100rem 0 73rem
+
+.blog-card
+    column-gap: 30rem
+    row-gap: 30rem
+
+.date
+    position: relative
+    width: 72rem
+    height: 72rem
+    border: 2px solid #555555
+    p
+        position: absolute
+        top: 50%
+        left: 50%
+        font-size: 24rem
+        letter-spacing: 2rem
+        text-transform: uppercase
+        color: #777777
+        font-weight: 700
+        text-align: center
+        transform: translate(-50%, -50%)
+        span
+            font-size: 14rem
+            font-weight: 700
+   
+.name-flex
+    justify-content: flex-start
+    padding-bottom: 23rem
+
+.head-startup
+    padding-left: 28rem
+
+.head-name
+    padding-bottom: 15rem
+    font-size: 16rem
+    line-height: 1.5em
+    text-transform: uppercaser
+    color: #555555
+    font-weight: 400
+    font-family: "Montserrat"
+    text-align: center
+
+.name-recent
+    font-size: 13rem
+    line-height: 1.7em
+    color: #777777
+    font-weight: 400
+    font-style: italic
+    font-family: "Roboto Slab"
+
+.description
+    padding-bottom: 34rem
+    font-size: 14rem
+    line-height: 1.7em
+    color: #555555
+    font-weight: 400
+    font-family: "Roboto Slab"
+    text-align: start
+
+.btn
+    display: inline-block
+    font-size: 13rem
+    letter-spacing: 1px
+    line-height: 1.7em
+    text-transform: uppercase
+    color: #777777
+    font-weight: 700
+    font-family: "Roboto Slab"
+    text-align: center
+    transition: all .5s ease
+    &:hover
+        color: #c0301c
+
+.partner-section
+    background-color: #f8f8f8
+
+
+.partner-img
+    position: relative
+    width: 142rem
+    height: 50rem
+    img
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+
+.coments
+    width: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    padding: 68rem 0 100rem
+    text-align: center
+
+.coment
+    max-width: 763rem
+    font-size: 18rem
+    line-height: 1.7em
+    color: #555555
+    font-weight: 400
+    font-family: "Roboto Slab"
+    text-align: center
+    span
+        padding-top: 43rem
+        display: block
+
+.coment-two,
+.coment-second
+    display: none
+
+.circle-button-block
+    padding-top: 39rem
+    column-gap: 5rem
+
+.input-coment
+    display: none
+    
+.input-coment + label
+    position: relative
+    left: 0
+    top: 0
+    width: 13rem
+    height: 13rem
+    border-radius: 50%
+    padding-left: 25rem
+    display: inline-block
+    cursor: pointer
+
+.input-coment + label::before,
+.input-coment + label::after
+    content: ""
+    position: absolute
+
+
+.input-coment + label::before 
+    left: 0
+    top: 0
+    width: 13rem
+    height: 13rem
+    border-radius: 50%
+    background-color: #ddd
+    border: none
+    cursor: pointer
+
+.input-coment:checked + label::after
+    left: 0
+    top: 0
+    width: 13rem
+    height: 13rem
+    border-radius: 50%
+    background-color: #be2814
+    border: none
+    cursor: pointer
+
+.contacts-form
+    column-gap: 100rem
+    
+.contact
+    padding-bottom: 15rem
+    font-size: 14rem
+    line-height: 2em
+    text-transform: uppercase
+    color: #555555
+
+.adress,
+.hotline,
+.email
+    max-width: 205rem
+    padding: 0 0 40rem 30rem
+
+.adress-icon,
+.hotline-icon,
+.email-icon
+    position: relative
+    &::before
+        content: ""
+        position: absolute
+        left: -30rem
+
+.adress-icon
+    &::before
+        top: 6rem
+        width: 12rem
+        height: 17rem
+        background: url("../img/map.svg")
+
+.hotline-icon
+    &::before
+        top: 4rem
+        width: 13rem
+        height: 20rem
+        background: url("../img/phone.svg")
+
+.email-icon
+    &::before
+        top: 7rem
+        width: 16rem
+        height: 12rem
+        background: url("../img/mail.svg")
+
+.contact-text
+    font-size: 12rem
+    line-height: 1.7em
+    color: #555555
+    font-weight: 400
+    font-family: "Roboto Slab"
+
+.text-form
+    max-width: 730rem
+
+.input-block-display
+    column-gap: 30rem
+    padding-bottom: 30rem
+
+.input-block
+    padding-right: 30rem
+    width: 320rem
+
+.textarea-block 
+    padding-bottom: 20rem
+
+.button-block
+    column-gap: 40rem
+    justify-content: flex-start
+    align-items: center
+
+.form-btn
+    padding: 11rem 38rem
+    font-size: 12rem
+    line-height: 1.7em
+    text-transform: uppercase
+    color: #555555
+    font-weight: 400
+    font-family: "Roboto Slab"
+    background-color: #fff
+    border: none
+    border: 1px solid #555555
+    transition: all 1s ease
+    cursor: pointer
+    &:hover
+        background-color: #555
+        color: #fff
+        
+
+.coment-form
+    font-size: 12rem
+    line-height: 1.7em
+    color: #555
+    font-weight: 400
+    font-family: "Roboto Slab"
+
+.red
+    color: #c0301c
+
+.footer 
+    background-color: #c0301c
+
+.footer-block
+    padding: 100rem 0 
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    p
+        font-size: 12rem
+        line-height: 1.7em
+        text-transform: uppercase
+        color: #fff
+        font-weight: 400
+        font-family: "Roboto Slab"
+        text-align: center
+
+.social
+    column-gap: 13rem
+
+.social-border
+    position: relative
+    width: 35rem
+    height: 35rem
+    border-radius: 50%
+    background-color: #c0301c
+    border: 2px solid #ffffff
+    transition: all 1s ease
+    &:hover
+        transform: scale(1.1)
+
+.fb,
+.tw,
+.inst,
+.link
+    position: absolute
+    top: 50%
+    left: 50%
+    fill: #fff
+    transform: translate(-50%, -50%)
+
+.mini
+    margin: 30rem 0
+    width: 50rem
+    border: none
+    border-top: 2rem solid #fff
+
+
+
+
+
