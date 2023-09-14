@@ -8,12 +8,13 @@ html(lang="en")
         title Document
     body 
         include components/mixin
-        header.parallax-header
+        header#home.parallax-header.fixed-header
             .opacity-bg
             .parallax-bg
+            .fixed-navigation
+            .decstop-menu
+                +menu(mainMenu)
             .wrapper.wrapper-mobile
-                .decstop-menu 
-                    +menu(mainMenu)
                 .burger-logo.d-flex
                     .logo 
                         a(href="index.html")
@@ -109,11 +110,11 @@ html(lang="en")
                     +cardMenu(cardBlock.table)
                     +cardMenu(cardBlock.canceliaria)
                     +cardMenu(cardBlock.events)
+            .progect-talk.d-flex
+                .paralax-image
+                p Do you like OUR WORK so far? Let's talk about YOUR PROJECT!
+                a.get-touch.cta.nav-menu(href="#contacts" data-href="#contacts")  Get in Touch
             section#blog
-                .progect-talk.d-flex
-                    .paralax-image
-                    p Do you like OUR WORK so far? Let's talk about YOUR PROJECT!
-                    a.get-touch.cta.nav-menu(href="#contacts" data-href="#contacts")  Get in Touch
                 .blog.section-head
                     h2 Recent blog posts
                     span.line

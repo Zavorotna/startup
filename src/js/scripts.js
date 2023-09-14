@@ -1,4 +1,18 @@
 window.addEventListener('load', function(){
+  
+  // фіксований хедер
+  window.addEventListener('scroll', function () {
+    const scrollFixed = document.querySelector(".fixed-navigation"),
+      navigationHeader = document.querySelector(".navigation")
+    if (window.scrollY > 0) {
+      scrollFixed.classList.add('scrolled')
+      navigationHeader.style.top = "0"
+    } else {
+      scrollFixed.classList.remove('scrolled')
+      navigationHeader.style.top = ""
+    }
+  })
+
   //паралакс ефект на скрол
   const parallaxBg = document.querySelector('.parallax-bg'),
       opacityBg = document.querySelector('.opacity-bg'),
@@ -56,6 +70,7 @@ window.addEventListener('load', function(){
       this.classList.toggle('active'),
       mobileMenu.classList.toggle('activemobile')
     })
+
   // скролл до секцій
   const navLinks = [...document.querySelectorAll(".nav-menu")]
 
@@ -93,6 +108,32 @@ window.addEventListener('load', function(){
           
       })
   })
+  //scroll до блоків
+  function animateSectionBlock() {
+    const sectionBlock = document.querySelectorAll("section")
+  
+    sectionBlock.forEach(item => {
+      const itemTop = item.getBoundingClientRect().top
+      const windowHeight = window.innerHeight
+  
+      if (itemTop < windowHeight / 2) {
+        item.style.opacity = 1
+        item.style.transform = "translateX(0)"
+      } else {
+        item.style.opacity = 0
+        item.style.transform = "translateY(20px)"
+      }
+    });
+  }
+  
+  function handleScroll() {
+    animateSectionBlock()
+  }
+  
+  window.addEventListener("scroll", handleScroll)
+  window.addEventListener("resize", animateSectionBlock)
+  
+
 
   //карусель працівників  
   const carousel = document.querySelector('.carousel'),
@@ -141,13 +182,24 @@ window.addEventListener('load', function(){
     console.log(clickBlock)
 
     clickBlock.forEach((clickBlock, index) => {
-      console.log(index)
       clickBlock.addEventListener('click', function(){
 
         redBlock[index].classList.toggle("active-red")
         textBlock[index].classList.toggle("active-text")
       
       })
+  
+      // сортування карток товару
+
+  // const figureId = document.querySelectorAll(".figure"),
+  //     cardCta = document.querySelectorAll(".card-cta")
+
+  //   cardCta.forEach(items => () {
+  //     items.addEventListener("click", function() {
+  //       hair.style.display = "none"
+  //     })
+  //   })
+  
 
       // попап з блокам
       

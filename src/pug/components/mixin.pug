@@ -1,6 +1,6 @@
 -
     let mainMenu = [
-            ["Home", "index.html"],
+            ["Home", "#home"],
             ["Services", "#service"],
             ["About", "#about"],
             ["Works", "#works"],
@@ -9,7 +9,7 @@
             ["Contact", "#contacts"],
         ]
 mixin menu(mainMenu)
-    .navigation.d-flex.fixed
+    .navigation.d-flex
         .logo 
             a(href="index.html")
                 p.name-company Startup
@@ -67,11 +67,12 @@ mixin menuWork(workMenu)
         ul.menu-work.d-flex
             for item in workMenu 
                 li  
-                    a(href=item[1]) #{item[0]}
+                    a.card-cta(href=item[1]) #{item[0]}
 
 -
     let cardBlock = {
         hair: {
+            id: "hair",
             img: "img/hair.webp",
             alt: "hair",
             head: "Hair Dresser",
@@ -80,6 +81,7 @@ mixin menuWork(workMenu)
             href: "#",
         },
         bird: {
+            id: "bird",
             img: "img/bird.webp",
             alt: "bird",
             head: "Hope",
@@ -88,6 +90,7 @@ mixin menuWork(workMenu)
             href: "#",
         },
         notebook: {
+            id: "notebook",
             img: "img/notebook.webp",
             alt: "notebook",
             head: "Work place",
@@ -96,6 +99,7 @@ mixin menuWork(workMenu)
             href: "#",
         },
         photo: {
+            id: "photo",
             img: "img/photo.webp",
             alt: "photo",
             head: "Photo",
@@ -104,6 +108,7 @@ mixin menuWork(workMenu)
             href: "#",
         },
         bycicle: {
+            id: "bicycle",
             img: "img/bycicle.webp",
             alt: "bycicle",
             head: "Bycicle",
@@ -112,6 +117,7 @@ mixin menuWork(workMenu)
             href: "#",
         },
         note: {
+            id: "note",
             img: "img/note.webp",
             alt: "note",
             head: "Work place",
@@ -120,6 +126,7 @@ mixin menuWork(workMenu)
             href: "#",
         },
         table: {
+            id: "table",
             img: "img/table.webp",
             alt: "table",
             head: "Work place",
@@ -128,6 +135,7 @@ mixin menuWork(workMenu)
             href: "#",
         },
         canceliaria: {
+            id: "cancelaria",
             img: "img/canceliaria.webp",
             alt: "cancelaria",
             head: "Work",
@@ -136,6 +144,7 @@ mixin menuWork(workMenu)
             href: "#",
         },
         events: {
+            id: "events",
             img: "img/events.webp",
             alt: "events",
             head: "Events",
@@ -147,7 +156,7 @@ mixin menuWork(workMenu)
     }
 
 mixin cardMenu(cardBlock) 
-    figure
+    figure.figure(id=cardBlock.id)
         figcaption.img-cards
             picture
                 img(src=cardBlock.img, alt=cardBlock.alt class="card-block-img")

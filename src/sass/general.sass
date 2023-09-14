@@ -8,7 +8,7 @@ body
     font-family: 'Montserrat'
     overflow-x: hidden
     scroll-behavior: smooth
-
+    
 ul
     li
         list-style: none
@@ -30,6 +30,9 @@ h1
 
 section
     padding: 0 0 100rem
+    opacity: 0
+    transform: translateX(20px)
+    transition: opacity 2s ease, transform 0.3s ease
 
 h2 
     margin: 0
@@ -113,13 +116,36 @@ textarea
     
 
 .navigation
-    padding-top: 40rem
+    position: fixed
+    top: 20rem
+    left: 0
+    max-width: 1140rem
+    width: 100%
+    padding: 10rem 40rem 0
     flex-direction: column
     align-items: center
     row-gap: 20rem
+    z-index: 5
     +media(769)
         flex-direction: row
         align-items: flex-start
+
+.fixed-header
+    padding-top: 100rem
+
+.fixed-navigation
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    z-index: 3
+    transition: all .5s ease
+
+.scrolled
+    padding: 30rem 0
+    transition: all .5s ease
+    background-color: #d12525
+    opacity: 0.5
 
 .name-company
     font-size: 24rem
