@@ -15,8 +15,9 @@ window.addEventListener('load', function(){
 
   //паралакс ефект на скрол
   const parallaxBg = document.querySelector('.parallax-bg'),
-      opacityBg = document.querySelector('.opacity-bg'),
-      parallaxImage = document.querySelector('.paralax-image')
+  opacityBg = document.querySelector('.opacity-bg'),
+  parallaxImage = document.querySelector('.paralax-image')
+  console.log(parallaxImage.style)
   
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY
@@ -28,13 +29,13 @@ window.addEventListener('load', function(){
     parallaxProgect = document.querySelector('.progect-talk'),
     parallaxBgS = document.querySelector('.parallax-bg'),
     opacityBgS = document.querySelector('.opacity-bg'),
-    sensitivity = 400
+    sensitivity = 100
   //паралакс ефект на рух курсором мишки
   document.addEventListener('mousemove', (e) => {
     let mouseX = e.clientX + 20,
       mouseY = e.clientY + 20,
-      mouseXPr = e.clientX,
-      mouseYPr = e.clientY
+      mouseXPr = e.clientX * 1.5,
+      mouseYPr = e.clientY * 1.5
   
     const containerRect = parallaxContainer.getBoundingClientRect(),
       containerWidth = containerRect.width,
@@ -52,13 +53,13 @@ window.addEventListener('load', function(){
     // Розрахунок руху паралакс-зображення
     const offsetX = (containerWidth / 6 - mouseX) / sensitivity,
       offsetY = (containerHeight / 6 - mouseY) / sensitivity,
-      offsetXPr = (containerWidthPr / 4 - mouseXPr) / sensitivity,
-      offsetYPr = (containerHeightPr / 4 - mouseYPr) / sensitivity
+      offsetXPr = (containerWidthPr / 8 - mouseXPr) / sensitivity,
+      offsetYPr = (containerHeightPr / 8 - mouseYPr) / sensitivity
   
     // Застосовуємо трансформацію зображення
     parallaxBgS.style.transform = `translate(${offsetX}px, ${offsetY}px)`
     opacityBgS.style.transform = `translate(${offsetX}px, ${offsetY}px)`
-    parallaxImage.style.transform = `translate(${offsetXPr}px, ${offsetYPr}px)`
+    parallaxImage.style.backgroundPosition = `${offsetXPr}rem ${offsetYPr}rem`
   })
   
   
@@ -116,7 +117,7 @@ window.addEventListener('load', function(){
       const itemTop = item.getBoundingClientRect().top
       const windowHeight = window.innerHeight
   
-      if (itemTop < windowHeight / 2) {
+      if (itemTop < windowHeight / 2 && itemTop < 0) {
         item.style.opacity = 1
         item.style.transform = "translateX(0)"
       } else {
@@ -129,7 +130,7 @@ window.addEventListener('load', function(){
   function handleScroll() {
     animateSectionBlock()
   }
-  
+  animateSectionBlock()
   window.addEventListener("scroll", handleScroll)
   window.addEventListener("resize", animateSectionBlock)
   
@@ -193,14 +194,16 @@ window.addEventListener('load', function(){
 
   // const figureId = document.querySelectorAll(".figure"),
   //     cardCta = document.querySelectorAll(".card-cta")
-
-  //   cardCta.forEach(items => () {
-  //     items.addEventListener("click", function() {
-  //       hair.style.display = "none"
+  //     console.log(hrefCard)
+  //     cardCta.forEach(item => function(evt) {
+  //       let hrefCard = evt.target.getAttribute("data-href")
+  //       hrefCard.addEventListener("click", function(){
+  //         if (hrefCard === "branding") {
+  //           figureId[2]
+  //         }
+  //       })
   //     })
-  //   })
-  
-
+    
       // попап з блокам
       
   const openPopupButton = document.getElementById("openPopupButton")
@@ -290,4 +293,12 @@ window.addEventListener('load', function(){
         })
     })
 })  
+/**
+ * зробити щоб перемикалося саме через сетінтервал
+ * потрійний клік це ключ details
+ * адаптив через бутстрап 
+ * прописати data-filter фбо клас і відображати на клік лише ті товари які мають такі класи
+ * 
+ * 
+ */
 

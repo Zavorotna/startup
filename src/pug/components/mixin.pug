@@ -56,18 +56,18 @@ mixin cardWorkers(workers)
 
 -
     let workMenu = [
-            ["All", "#"],
-            ["Branding", "#"],
-            ["Design", "#"],
-            ["Development", "#"],
-            ["Strategy", "#"],
+            ["All", "#all"],
+            ["Branding", "#branding"],
+            ["Design", "#design"],
+            ["Development", "#develop"],
+            ["Strategy", "#strategy"],
         ]
 mixin menuWork(workMenu)
     nav.work-nav.d-flex
         ul.menu-work.d-flex
             for item in workMenu 
                 li  
-                    a.card-cta(href=item[1]) #{item[0]}
+                    a.card-cta(href=item[1], data-href=item[1]) #{item[0]}
 
 -
     let cardBlock = {
