@@ -15,51 +15,37 @@ window.addEventListener('load', function(){
 
   //паралакс ефект на скрол
   const parallaxBg = document.querySelector('.parallax-bg'),
-  opacityBg = document.querySelector('.opacity-bg'),
-  parallaxImage = document.querySelector('.paralax-image')
-  console.log(parallaxImage.style)
+    opacityBg = document.querySelector('.opacity-bg'),
+    parallaxImage = document.querySelector('.paralax-image'),
+    parallaxContainer = document.querySelector('.parallax-header'),
+    parallaxProgect = document.querySelector('.progect-talk'),
+    parallaxBgS = document.querySelector('.parallax-bg'),
+    opacityBgS = document.querySelector('.opacity-bg'),
+    sensitivity = 100
   
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY
     parallaxBg.style.transform = `translateY(${scrollY * -0.5}px)`
     opacityBg.style.transform = `translateY(${scrollY * -0.5}px)`
   })
-  
-  const parallaxContainer = document.querySelector('.parallax-header'),
-    parallaxProgect = document.querySelector('.progect-talk'),
-    parallaxBgS = document.querySelector('.parallax-bg'),
-    opacityBgS = document.querySelector('.opacity-bg'),
-    sensitivity = 100
+
   //паралакс ефект на рух курсором мишки
   document.addEventListener('mousemove', (e) => {
-    let mouseX = e.clientX + 20,
-      mouseY = e.clientY + 20,
-      mouseXPr = e.clientX * 1.5,
-      mouseYPr = e.clientY * 1.5
+    let mouseX = e.clientX + 350,
+      mouseY = e.clientY + 350
   
     const containerRect = parallaxContainer.getBoundingClientRect(),
-      containerWidth = containerRect.width,
-      containerHeight = containerRect.height
-    const containerRectPr = parallaxProgect.getBoundingClientRect(),
-      containerWidthPr = containerRectPr.width,
-      containerHeightPr = containerRectPr.height
-  
-    // Обмеження координати миші в межах контейнера
-    mouseX = Math.max(Math.min(mouseX, containerWidth + 20), 20)
-    mouseY = Math.max(Math.min(mouseY, containerHeight + 20), 20)
-    mouseXPr = Math.max(Math.min(mouseXPr, containerWidthPr + 20), 20)
-    mouseYPr = Math.max(Math.min(mouseYPr, containerHeightPr + 20), 20)
+      containerWidth = containerRect.width / 2,
+      containerHeight = containerRect.height / 2
   
     // Розрахунок руху паралакс-зображення
-    const offsetX = (containerWidth / 6 - mouseX) / sensitivity,
-      offsetY = (containerHeight / 6 - mouseY) / sensitivity,
-      offsetXPr = (containerWidthPr / 8 - mouseXPr) / sensitivity,
-      offsetYPr = (containerHeightPr / 8 - mouseYPr) / sensitivity
+    const offsetX = (containerWidth - mouseX) / sensitivity,
+      offsetY = (containerHeight - mouseY) / sensitivity
   
     // Застосовуємо трансформацію зображення
-    parallaxBgS.style.transform = `translate(${offsetX}px, ${offsetY}px)`
-    opacityBgS.style.transform = `translate(${offsetX}px, ${offsetY}px)`
-    parallaxImage.style.backgroundPosition = `${offsetXPr}rem ${offsetYPr}rem`
+    parallaxBgS.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
+    opacityBgS.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
+    parallaxImage.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
   })
   
   
