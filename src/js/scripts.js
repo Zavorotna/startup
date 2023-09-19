@@ -18,9 +18,6 @@ window.addEventListener('load', function(){
     opacityBg = document.querySelector('.opacity-bg'),
     parallaxImage = document.querySelector('.paralax-image'),
     parallaxContainer = document.querySelector('.parallax-header'),
-    parallaxProgect = document.querySelector('.progect-talk'),
-    parallaxBgS = document.querySelector('.parallax-bg'),
-    opacityBgS = document.querySelector('.opacity-bg'),
     sensitivity = 100
   
   window.addEventListener('scroll', () => {
@@ -31,8 +28,8 @@ window.addEventListener('load', function(){
 
   //паралакс ефект на рух курсором мишки
   document.addEventListener('mousemove', (e) => {
-    let mouseX = e.clientX + 350,
-      mouseY = e.clientY + 350
+    let mouseX = e.clientX,
+      mouseY = e.clientY
   
     const containerRect = parallaxContainer.getBoundingClientRect(),
       containerWidth = containerRect.width / 2,
@@ -43,8 +40,8 @@ window.addEventListener('load', function(){
       offsetY = (containerHeight - mouseY) / sensitivity
   
     // Застосовуємо трансформацію зображення
-    parallaxBgS.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
-    opacityBgS.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
+    parallaxBg.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
+    opacityBg.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
     parallaxImage.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
   })
   
@@ -110,7 +107,7 @@ window.addEventListener('load', function(){
         item.style.opacity = 0
         item.style.transform = "translateY(20px)"
       }
-    });
+    })
   }
   
   function handleScroll() {
@@ -132,9 +129,9 @@ window.addEventListener('load', function(){
   // Копіюємо перший блок в кінець, щоб зробити його безкінечним
   items.forEach((item, index) => {
     console.log(item, index)
-    const clone = item.cloneNode(true);
-    console.log(clone);
-    carousel.appendChild(clone);
+    const clone = item.cloneNode(true)
+    console.log(clone)
+    carousel.appendChild(clone)
   }) 
 
   let currentIndex = 0,
@@ -157,9 +154,9 @@ window.addEventListener('load', function(){
   })
 
   function updateCarousel() {
-      const translateXValue = -currentIndex * itemWidth;
-      carousel.style.transition = 'transform 0.5s ease-in-out';
-      carousel.style.transform = `translateX(${translateXValue}px)`;
+      const translateXValue = -currentIndex * itemWidth
+      carousel.style.transition = 'transform 0.5s ease-in-out'
+      carousel.style.transform = `translateX(${translateXValue}px)`
   }
 
   //червоні блоки на картках
@@ -175,20 +172,6 @@ window.addEventListener('load', function(){
         textBlock[index].classList.toggle("active-text")
       
       })
-  
-      // сортування карток товару
-
-  // const figureId = document.querySelectorAll(".figure"),
-  //     cardCta = document.querySelectorAll(".card-cta")
-  //     console.log(hrefCard)
-  //     cardCta.forEach(item => function(evt) {
-  //       let hrefCard = evt.target.getAttribute("data-href")
-  //       hrefCard.addEventListener("click", function(){
-  //         if (hrefCard === "branding") {
-  //           figureId[2]
-  //         }
-  //       })
-  //     })
     
       // попап з блокам
       
@@ -244,44 +227,67 @@ window.addEventListener('load', function(){
   })
 
   //сервіси зміна тексту і стилю
-    const cardFigures = document.querySelectorAll('.card-figure')
-      cardFigures.forEach((cardFigure) => {
-          const circle = cardFigure.querySelector('.circle'),
-            heading = cardFigure.querySelector('p.personal')
+    const cardFigures = document.querySelectorAll('.card-figure'),
+      tripleClick = document.querySelector(".triple-click"),
+      heading = document.querySelectorAll('p.personal')
   
-          circle.addEventListener('click', () => {
-            if (circle.classList.contains('active')) {
-              circle.classList.remove('active');
-              heading.textContent = 'Clean Typography';
-              heading.style.fontWeight = 'normal';
-              heading.style.color = 'initial';
-            } else {
-                // Увімкніть зміни, додавши клас "active"
-                circle.classList.add('active');
-                heading.textContent = 'Hack This Site'
-                heading.style.fontWeight = 'bold'
-                heading.style.color = '#c0301c'
-            }
-          })
-    })
+      tripleClick.addEventListener("click", function(e) {
+        heading.forEach(item => {
+          if (e.detail === 3) {
+            item.style.fontWeight = 'bold'
+            item.style.color = '#c0301c'
+            item.textContent = 'Hack This Site'
+          }
+        })
+      })
   // зміна коментарів на радіокнопки
   const radioButtons = document.querySelectorAll('input[name="radio-coment"]'),
     comments = document.querySelectorAll('.coment')
-    radioButtons.forEach((radioButton) => {
-        radioButton.addEventListener('change', () => {
-            const selectedCommentId = radioButton.value,
-              selectedComment = document.getElementById(selectedCommentId)
-
-            comments.forEach((comment) => {
-                comment.classList.remove('active')
-            })
-            selectedComment.classList.add('active')
+  let currentIndexRadio = 0
+  
+  function switchComment() {
+      radioButtons[currentIndexRadio].checked = true
+      comments.forEach((comment) => {
+          comment.classList.remove('active')
+      })
+      comments[currentIndexRadio].classList.add('active')
+  
+      currentIndexRadio = (currentIndexRadio + 1) % radioButtons.length
+  }
+  
+  const intervalRadio = setInterval(switchComment, 3000)
+  
+  radioButtons.forEach((radioButton, index) => {
+      radioButton.addEventListener('change', () => {
+          clearInterval(intervalRadio)
+          currentIndexRadio = index
+          switchComment()
+      })
+  })
+  // сортування карток товарів
+  const btnProduct = document.querySelectorAll(".card-cta"),
+    categories = ["branding", "design", "development", "strategy"]
+  
+  btnProduct.forEach(item => {
+    item.addEventListener("click", evt => {
+      evt.preventDefault()
+      btnProduct.forEach(button => button.style.color = "#555")
+      item.style.color = evt.target === item ? "#c0301c" : "#555"
+      let id = evt.target.getAttribute("data-href")
+  
+      categories.forEach(category => {
+        const elements = document.querySelectorAll(`.${category}`)
+        elements.forEach(element => {
+          element.style.display = id === `#${category}` || id === "#all" ? "flex" : "none"
         })
+      })
     })
-})  
+  })
+  
+})
+
 /**
  * зробити щоб перемикалося саме через сетінтервал
- * потрійний клік це ключ details
  * адаптив через бутстрап 
  * прописати data-filter фбо клас і відображати на клік лише ті товари які мають такі класи
  * 

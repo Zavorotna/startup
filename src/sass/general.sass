@@ -51,6 +51,7 @@ hr
 
 figure
     margin: 0
+    
 
 input,
 textarea
@@ -112,9 +113,8 @@ textarea
     width: 100%
     background: url(../img/startup-hero-bg.jpg) no-repeat
     background-position: center
-    background-size: 115%
+    background-size: 125% 130% 
     
-
 .navigation
     position: fixed
     top: 20rem
@@ -127,19 +127,22 @@ textarea
     row-gap: 20rem
     z-index: 5
     +media(769)
+        top: 20rem  
         flex-direction: row
         align-items: flex-start
 
 .fixed-header
-    padding-top: 100rem
+    +media(768)
+        padding-top: 100rem
 
 .fixed-navigation
-    position: fixed
-    top: 0
-    left: 0
-    width: 100%
-    z-index: 3
-    transition: all .5s ease
+    +media(768)
+        position: fixed
+        top: 0
+        left: 0
+        width: 100%
+        z-index: 3
+        transition: all .5s ease
 
 .scrolled
     padding: 30rem 0
@@ -213,7 +216,11 @@ textarea
     +media(769)
         display: none
 
+.mobile-menu
+    display: none
+
 .activemobile
+    display: flex
     top: 0
 
 .burger
@@ -227,6 +234,7 @@ textarea
     cursor: pointer
     +media(769)
         display: none
+        
 .burger-fix
     position: fixed
     top: 0
@@ -235,7 +243,6 @@ textarea
 .bord
     display: block
     background-color: #fff
-    padding: 5куь
     width: 100%
     height: 2rem 
     box-shadow: 0 0 5rem 2rem #af4f37
@@ -366,21 +373,16 @@ textarea
     border: 2rem solid #dddddd
     background-color: #fff
     transition: all 1s ease
+    &:hover
+        background-color: #c0301c
+    &:hover > svg
+        fill: #fff
     svg
         position: absolute
         top: 50%
         left: 50%
         fill: #c0301c
         transform: translate(-50%, -50%)
-
-.circle.active 
-    background-color: #c0301c
-        
-.circle.active 
-    svg 
-        path 
-            fill: #fff
-
 
 .personal
     padding: 30rem 0
@@ -482,6 +484,7 @@ textarea
             color: #c0301c
 
 .brands 
+    justify-content: flex-start
     flex-wrap: wrap
     column-gap: 30rem
     row-gap: 30rem
@@ -566,7 +569,7 @@ textarea
     flex-direction: column
     align-items: center
     justify-content: center
-    z-index: 3
+    z-index: 4
     p
         position: relative
         padding-bottom: 72rem
@@ -577,6 +580,18 @@ textarea
         font-weight: 400
         font-family: "Roboto Slab"
         text-align: center
+        z-index: 4
+
+.paralax-opacity
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: 100%
+    height: 100%
+    background-color: #c0301c
+    opacity: 0.6
+    z-index: 1
 
 .paralax-image
     position: absolute
@@ -591,12 +606,11 @@ textarea
     
 
 .get-touch
+    position: relative
+    z-index: 4
     transition: all 1s ease
     &:hover
         transform: scale(1.1)
-
-// .blog
-//     padding: 100rem 0 73rem
 
 .blog-card
     column-gap: 30rem
