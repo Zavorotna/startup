@@ -121,12 +121,13 @@ textarea
     left: 0
     max-width: 1140rem
     width: 100%
-    padding: 10rem 40rem 0
+    padding: 10rem 0
     flex-direction: column
     align-items: center
     row-gap: 20rem
     z-index: 5
     +media(769)
+        padding: 10rem 40rem 0
         top: 20rem  
         flex-direction: row
         align-items: flex-start
@@ -217,10 +218,11 @@ textarea
         display: none
 
 .mobile-menu
-    display: none
+    opacity: 0
+    transform: all 2s ease
 
 .activemobile
-    display: flex
+    opacity: 1
     top: 0
 
 .burger
