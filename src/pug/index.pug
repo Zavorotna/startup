@@ -14,37 +14,37 @@ html(lang="en")
             .fixed-navigation
             .decstop-menu
                 +menu(mainMenu)
-            .wrapper.wrapper-mobile
+            .burger-logo.d-flex.wrapper-mobile
                 .burger-logo.d-flex
                     .logo 
                         a(href="index.html")
                             p.name-company Startup
-                    .burger.burger-fix#burger 
-                        span.bord 
-                        .mobile-menu.mobile#mobile
-                            +menu(mainMenu)
-                .start-info.d-flex 
-                    p.welcome-text#statusMessage Welcome to STARTUP
-                    h1 Your Favourite Creative Agency Template
-                    a#openPopupButton.cta(href="#") Get Started
-                    div#authPopup.popup
-                        div#dragArea.drag-area
-                            div.block(data-order="1" draggable="true") Блок 1
-                            div.block(data-order="2" draggable="true") Блок 2
-                            div.block(data-order="3" draggable="true") Блок 3
-                        .d-flex
-                            div.block-place
-                            div.block-place
-                            div.block-place
-                        .login-form
-                            input#loginInput(type="text" placeholder="Username")
-                            input#passwordInput(type="password" placeholder="Password")
-                            button#loginButton Login
-                        .success-message
-                            p#usernameDisplay
-                            p Authorization successful. Welcome!
-                        p#statusMessage
-                        button#tryAgainButton Try Again
+                    .burger#burger.burger-fix
+                        span.bord
+                    .mobile-menu.mobile#mobile 
+                        +menu(mainMenu)
+            .start-info.d-flex 
+                p.welcome-text#statusMessage Welcome to STARTUP
+                h1 Your Favourite Creative Agency Template
+                a#openPopupButton.cta(href="#") Get Started
+                div#authPopup.popup
+                    div#dragArea.drag-area
+                        div.block(data-order="1" draggable="true") Блок 1
+                        div.block(data-order="2" draggable="true") Блок 2
+                        div.block(data-order="3" draggable="true") Блок 3
+                    .d-flex
+                        div.block-place
+                        div.block-place
+                        div.block-place
+                    .login-form
+                        input#loginInput(type="text" placeholder="Username")
+                        input#passwordInput(type="password" placeholder="Password")
+                        button#loginButton Login
+                    .success-message
+                        p#usernameDisplay
+                        p Authorization successful. Welcome!
+                    p#statusMessage
+                    button#tryAgainButton Try Again
         main
             section#service.wrapper
                 .service.section-head
@@ -121,10 +121,10 @@ html(lang="en")
                     span.line
                     p Lorem ipsum dolor sit amet, consetetur sadipscing elitr amet
                 .wrapper
-                    a(href="#").startup 
+                    .startup 
                         +blogCard(blog.startup)
                     hr
-                    a(href="#").user
+                    .user
                         +blogCard(blog.user)
             section#clients.partner-section.section-head
                 .partner.d-flex.wrapper

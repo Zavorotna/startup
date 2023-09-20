@@ -119,7 +119,32 @@ window.addEventListener('load', function(){
     prevButton = document.querySelector('#prevBtn'),
     nextButton = document.querySelector('#nextBtn'),
     items = [...document.querySelectorAll(".carousel-item")]
-  let currentIndex = 0
+  let currentIndex = 0,
+    startX = 0,
+    isDragging = false
+
+carousel.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX
+    isDragging = true
+})
+
+carousel.addEventListener('touchmove', (e) => {
+    if (!isDragging) return
+
+    const currentX = e.touches[0].clientX
+    const deltaX = currentX - startX
+
+    if (Math.abs(deltaX) > 50) {
+        if (deltaX > 0) {
+            currentIndex--
+        } else {
+            currentIndex++
+        }
+
+        updateCarousel()
+        isDragging = false
+    }
+})
 
   nextButton.addEventListener('click', () => {
       currentIndex++
@@ -163,8 +188,8 @@ window.addEventListener('load', function(){
         textBlock[index].classList.toggle("active-text")
       
       })
-    
-      // попап з блокам
+    })
+  // попап з блокам
       
   const openPopupButton = document.getElementById("openPopupButton")
     authPopup = document.getElementById("authPopup"),
@@ -273,15 +298,32 @@ window.addEventListener('load', function(){
         })
       })
     })
-  })
+
+  // попап з текстом
+  const btnReadMore = document.querySelectorAll(".btn");
+  const btnCancel = document.querySelectorAll(".btn-cancel");
   
+  btnReadMore.forEach((item, index) => {
+    item.addEventListener("click", function() {
+      const desriptMore = document.querySelectorAll(".description-more")[index];
+      desriptMore.classList.add("visible");
+      btnCancel[index].style.display = "block";
+      item.style.display = "none";
+    });
+  });
+  
+  btnCancel.forEach((item, index) => {
+    item.addEventListener("click", function() {
+      const desriptMore = document.querySelectorAll(".description-more")[index];
+      desriptMore.classList.remove("visible");
+      btnReadMore[index].style.display = "block";
+      item.style.display = "none";
+    });
+  });
+  
+
+  
+
 })
 
-/**
- * зробити щоб перемикалося саме через сетінтервал
- * адаптив через бутстрап 
- * прописати data-filter фбо клас і відображати на клік лише ті товари які мають такі класи
- * 
- * 
- */
 

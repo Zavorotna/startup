@@ -180,8 +180,10 @@ mixin cardMenu(cardBlock)
             secondName: " Uddin in",
             lastName: " Development",
             description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod teduntlabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et erebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit am Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidulabore et dolore aliquyam erat, sed diam ",
+            descroptionMore: "More Text Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod teduntlabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et erebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit am Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidulabore et dolore aliquyam erat, sed diam",
             btn: "Read more",
-            href: "#",
+            href: "",
+            btncancel: "Cancel",
         },
         user: {
             img: "img/table.png",
@@ -194,8 +196,10 @@ mixin cardMenu(cardBlock)
             secondName: " Uddin in",
             lastName: " Development",
             description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod teduntlabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et erebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit am Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidulabore et dolore aliquyam erat, sed diam ",
+            descroptionMore: "More Text Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod teduntlabore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et erebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit am Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidulabore et dolore aliquyam erat, sed diam",
             btn: "Read more",
-            href: "#",
+            href: "",
+            btncancel: "Cancel",
         },
     }
 
@@ -217,4 +221,6 @@ mixin blogCard(blog)
                         span.red #{blog.lastName}
             .text-startup 
                 p.description #{blog.description}
-                a.btn(href=blog.href) #{blog.btn}
+                p.description-more #{blog.descroptionMore}
+                button.btn(href=blog.href) #{blog.btn}
+                button.btn-cancel(href=blog.href) #{blog.btncancel}

@@ -118,21 +118,19 @@ textarea
     background-size: cover
 
 .navigation
-    position: fixed
-    top: 20rem
-    left: 0
-    max-width: 1140rem
-    width: 100%
-    padding: 10rem 0
+    padding: 30rem 0
     flex-direction: column
     align-items: center
     row-gap: 20rem
     z-index: 5
     +media(769)
-        padding: 10rem 40rem 0
+        padding: 10rem 65rem
+        width: 90%
+        position: fixed
         top: 20rem  
+        left: 0
         flex-direction: row
-        align-items: flex-start
+        align-items: center
 
 .fixed-header
     +media(768)
@@ -163,6 +161,7 @@ textarea
     display: none
     +media(769)
         display: block
+        width: 100%
 
 .menu
     padding: 0
@@ -202,6 +201,7 @@ textarea
 .burger-logo
     padding-top: 20rem
     align-items: center
+    z-index: 2
     +media(769)
         display: none
 
@@ -241,7 +241,7 @@ textarea
         
 .burger-fix
     position: fixed
-    top: 0
+    top: 20rem
     right: 0
 
 .bord
@@ -282,10 +282,12 @@ textarea
             transform: rotate(-45deg)
                 
 .start-info
+    position: relative
     flex-direction: column
     align-items: center
     justify-content: center
     padding: 265rem 0
+    z-index: 1
 
 .popup 
     display: none
@@ -622,6 +624,7 @@ textarea
     column-gap: 30rem
     row-gap: 30rem
 
+
 .date
     position: relative
     width: 72rem
@@ -667,28 +670,48 @@ textarea
     font-style: italic
     font-family: "Roboto Slab"
 
-.description
-    padding-bottom: 34rem
+.description-more 
+  max-height: 0
+  overflow: hidden
+  transition: max-height 1s ease
+
+
+.description-more.visible 
+  max-height: 1000rem
+  transition: max-height 1s ease
+
+
+.description,
+.description-more
+    margin-bottom: 34rem
     font-size: 14rem
     line-height: 1.7em
     color: #555555
     font-weight: 400
     font-family: "Roboto Slab"
     text-align: start
+    transition: all 1s ease
 
-.btn
+.btn,
+.btn-cancel
     display: inline-block
     font-size: 13rem
     letter-spacing: 1px
     line-height: 1.7em
     text-transform: uppercase
     color: #777777
+    background-color: transparent
     font-weight: 700
     font-family: "Roboto Slab"
+    border: none
     text-align: center
     transition: all .5s ease
+    cursor: pointer
     &:hover
         color: #c0301c
+
+.btn-cancel
+    display: none
 
 .partner-section
     background-color: #f8f8f8
