@@ -67,6 +67,7 @@ textarea
     outline: none
     border: none
     border: 1px solid #555
+    box-sizing: border-box
     &:focus
         border: 1px solid #c0301c
 
@@ -107,14 +108,15 @@ textarea
 
 .parallax-bg 
     position: absolute
-    top: 0
-    left: 0
+    top: -10rem
+    left: -20rem
     bottom: 0
-    width: 100%
+    width: 110%
+    height: 101.5%
     background: url(../img/startup-hero-bg.jpg) no-repeat
-    background-position: center
-    background-size: 125% 130% 
-    
+    background-position: top
+    background-size: cover
+
 .navigation
     position: fixed
     top: 20rem
@@ -424,10 +426,12 @@ textarea
     position: relative
     overflow: hidden
 
-
 .carousel
     transition: transform 0.5s
     column-gap: 30rem
+
+.carousel-item
+     transition: transform 0.5s ease-in-out
 
 .figure-workers
     margin: 0
@@ -835,14 +839,13 @@ textarea
     font-family: "Roboto Slab"
 
 .text-form
-    max-width: 730rem
+    max-width: 750rem
 
 .input-block-display
     column-gap: 30rem
     padding-bottom: 30rem
 
 .input-block
-    padding-right: 30rem
     width: 320rem
 
 .textarea-block 

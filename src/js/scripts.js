@@ -30,14 +30,10 @@ window.addEventListener('load', function(){
   document.addEventListener('mousemove', (e) => {
     let mouseX = e.clientX,
       mouseY = e.clientY
-  
-    const containerRect = parallaxContainer.getBoundingClientRect(),
-      containerWidth = containerRect.width / 2,
-      containerHeight = containerRect.height / 2
-  
+   
     // Розрахунок руху паралакс-зображення
-    const offsetX = (containerWidth - mouseX) / sensitivity,
-      offsetY = (containerHeight - mouseY) / sensitivity
+    const offsetX = mouseX / sensitivity,
+      offsetY = mouseY / sensitivity
   
     // Застосовуємо трансформацію зображення
     parallaxBg.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
@@ -118,47 +114,42 @@ window.addEventListener('load', function(){
   window.addEventListener("resize", animateSectionBlock)
   
 
-
-  //карусель працівників  
+// карусель працівників
   const carousel = document.querySelector('.carousel'),
     prevButton = document.querySelector('#prevBtn'),
     nextButton = document.querySelector('#nextBtn'),
     items = [...document.querySelectorAll(".carousel-item")]
-    
-
-  // Копіюємо перший блок в кінець, щоб зробити його безкінечним
-  items.forEach((item, index) => {
-    console.log(item, index)
-    const clone = item.cloneNode(true)
-    console.log(clone)
-    carousel.appendChild(clone)
-  }) 
-
-  let currentIndex = 0,
-    itemWidth = items[0].offsetWidth + 30
+  let currentIndex = 0
 
   nextButton.addEventListener('click', () => {
       currentIndex++
-      if (currentIndex > items.length) {
-          currentIndex = 0
-      }
       updateCarousel()
   })
 
   prevButton.addEventListener('click', () => {
       currentIndex--
-      if (currentIndex < 0) {
-          currentIndex = items.length
-      }
       updateCarousel()
   })
 
   function updateCarousel() {
-      const translateXValue = -currentIndex * itemWidth
-      carousel.style.transition = 'transform 0.5s ease-in-out'
-      carousel.style.transform = `translateX(${translateXValue}px)`
-  }
+    const numVisible = 4,
+      clones = []
 
+    while (carousel.firstChild) {
+        carousel.removeChild(carousel.firstChild)
+    }
+
+    for (let i = currentIndex; i < currentIndex + numVisible; i++) {
+        const cloneIndex = (i % items.length + items.length) % items.length,
+          clone = items[cloneIndex].cloneNode(true)
+        carousel.appendChild(clone)
+        clones.push(clone)
+    }
+
+    const translateXValue = -clones.findIndex(clone => clone === carousel.firstElementChild) * (clones[0].offsetWidth + 30)
+    carousel.style.transform = `translateX(${translateXValue}px)`
+}
+  
   //червоні блоки на картках
   const clickBlock = [...document.querySelectorAll(".img-cards")],
     textBlock = [...document.querySelectorAll(".text-block")],
