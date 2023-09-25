@@ -28,23 +28,27 @@ html(lang="en")
                 h1 Your Favourite Creative Agency Template
                 a#openPopupButton.cta(href="#") Get Started
                 div#authPopup.popup
+                    p Check Autorization please! Enter admin-code!
                     div#dragArea.drag-area
-                        div.block(data-order="1" draggable="true") Блок 1
-                        div.block(data-order="2" draggable="true") Блок 2
-                        div.block(data-order="3" draggable="true") Блок 3
+                        div.block(data-order="1" draggable="true") 1
+                        div.block(data-order="2" draggable="true") 2
+                        div.block(data-order="3" draggable="true") 3
+                        div.block(data-order="3" draggable="true") 4
+                        div.block(data-order="3" draggable="true") 5
+                        div.block(data-order="3" draggable="true") 6
+                        div.block(data-order="3" draggable="true") 7
+                        div.block(data-order="3" draggable="true") 8
+                        div.block(data-order="3" draggable="true") 9
                     .d-flex
-                        div.block-place
-                        div.block-place
-                        div.block-place
-                    .login-form
-                        input#loginInput(type="text" placeholder="Username")
-                        input#passwordInput(type="password" placeholder="Password")
-                        button#loginButton Login
+                        div.block-place.d-flex
+                        div.block-place.d-flex
+                        div.block-place.d-flex
                     .success-message
                         p#usernameDisplay
-                        p Authorization successful. Welcome!
                     p#statusMessage
-                    button#tryAgainButton Try Again
+                    p.d-flex
+                        button#closeButton.btn Close
+                        button#tryAgainButton.btn Try Again
         main
             section#service.wrapper
                 .service.section-head

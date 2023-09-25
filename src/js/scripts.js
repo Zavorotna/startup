@@ -68,7 +68,6 @@ window.addEventListener('load', function(){
                   window.removeEventListener("click", stopScroll)
                   window.removeEventListener("mousewheel", stopScroll)
                   window.removeEventListener("contextmenu", stopScroll)
-                  console.log("stop")
               }
               const interval = setInterval(() => {
                   window.addEventListener("click", stopScroll)
@@ -90,28 +89,30 @@ window.addEventListener('load', function(){
   })
   //scroll до блоків
   function animateSectionBlock() {
-    const sectionBlock = document.querySelectorAll("section")
+    const sectionBlocks = document.querySelectorAll("section");
   
-    sectionBlock.forEach(item => {
-      const itemTop = item.getBoundingClientRect().top
-      const windowHeight = window.innerHeight
+    sectionBlocks.forEach(item => {
+      const itemTop = item.getBoundingClientRect().top - 40;
+      const itemBottom = item.getBoundingClientRect().bottom - 40;
+      const windowHeight = window.innerHeight;
   
-      if (itemTop < windowHeight / 2 && itemTop < 0) {
-        item.style.opacity = 1
-        item.style.transform = "translateX(0)"
+      if (itemTop < windowHeight && itemBottom > 0) {
+        item.style.opacity = 1;
+        item.style.transform = "translateX(0)";
       } else {
-        item.style.opacity = 0
-        item.style.transform = "translateY(20px)"
+        item.style.opacity = 0;
+        item.style.transform = "translateY(100px)"; // Змінив "translateY(50)" на "translateY(50px)"
       }
-    })
+    });
   }
   
   function handleScroll() {
-    animateSectionBlock()
+    animateSectionBlock();
   }
-  animateSectionBlock()
-  window.addEventListener("scroll", handleScroll)
-  window.addEventListener("resize", animateSectionBlock)
+  
+  animateSectionBlock();
+  window.addEventListener("scroll", handleScroll);
+  window.addEventListener("resize", animateSectionBlock);
   
 
 // карусель працівників
@@ -190,58 +191,76 @@ carousel.addEventListener('touchmove', (e) => {
       })
     })
   // попап з блокам
-      
-  const openPopupButton = document.getElementById("openPopupButton")
-    authPopup = document.getElementById("authPopup"),
-    dragArea = document.getElementById("dragArea"),
+  const openPopupButton = document.querySelector("#openPopupButton"),
+    authPopup = document.querySelector("#authPopup"),
+    dragArea = document.querySelector("#dragArea"),
     blocks = document.querySelectorAll(".block"),
-    blockPlaces = [...document.querySelectorAll(".block-place")],
-    statusMessage = document.getElementById("statusMessage")
+    blockPlaces = document.querySelectorAll(".block-place"),
+    statusMessage = document.querySelector("#statusMessage"),
+    tryAgainButton = document.querySelector("#tryAgainButton"),
+    closeButton = document.querySelector("#closeButton")
 
-    let draggedBlock = null
+  let draggedBlock = null
 
-    // Функція для перевірки, чи виконані умови авторизації
-    function checkAuthorizationConditions() {
-        const block1Place = blockPlaces[0],
-          block2Place = blockPlaces[1],
-          block3Place = blockPlaces[2]
+  function checkAuthorization() {
+      const [block1Place, block2Place, block3Place] = blockPlaces
 
-        if (block1Place.contains(blocks[0]) && block2Place.contains(blocks[1]) && block3Place.contains(blocks[2])) {
+      const isAuthorized =
+          block1Place.contains(blocks[0]) &&
+          block1Place.contains(blocks[3]) &&
+          block1Place.contains(blocks[6]) &&
+          block2Place.contains(blocks[1]) &&
+          block2Place.contains(blocks[4]) &&
+          block2Place.contains(blocks[7]) &&
+          block3Place.contains(blocks[2]) &&
+          block3Place.contains(blocks[5]) &&
+          block3Place.contains(blocks[8])
+
+      if (isAuthorized) {
           authPopup.style.display = "none"
           document.title = "Startup are welcome to you!"
           statusMessage.innerText = "Woo-hoo! You get it! Authorization successful! Welcome!"
-        } else {
-          statusMessage.innerText = "Authorization error. Drag the blocks in the correct sequence."
-          
-        }
-    }
+      }
+  }
 
-    blocks.forEach(block => {
-        block.addEventListener("dragstart", (e) => {
-            e.dataTransfer.setData("text/plain", block.getAttribute("data-order"))
-            draggedBlock = block
-        })
-    })
-
-    blockPlaces.forEach(place => {
-        place.addEventListener("dragover", (e) => {
-            e.preventDefault()
-        })
-
-        place.addEventListener("drop", (e) => {
-            e.preventDefault()
-            if (draggedBlock) {
-                place.appendChild(draggedBlock)
-                checkAuthorizationConditions()
-            }
-        })
-    })
-            
-    openPopupButton.addEventListener("click", () => {
-        authPopup.style.display = "block"
-    })
+  openPopupButton.addEventListener("click", () => {
+      authPopup.style.display = "block"
+      checkAuthorization()
   })
 
+  blocks.forEach(block => {
+      block.addEventListener("dragstart", (e) => {
+          e.dataTransfer.setData("text/plain", block.getAttribute("data-order"))
+          draggedBlock = block
+      })
+  })
+
+  blockPlaces.forEach(place => {
+      place.addEventListener("dragover", (e) => {
+          e.preventDefault()
+      })
+
+      place.addEventListener("drop", (e) => {
+          e.preventDefault()
+          if (draggedBlock) {
+              place.appendChild(draggedBlock)
+              checkAuthorization()
+          }
+      })
+  })
+
+  // Повернення блоків до вихідного положення
+  tryAgainButton.addEventListener("click", () => {
+      blocks.forEach(block => {
+          dragArea.appendChild(block)
+      })
+  })
+
+  closeButton.addEventListener("click", () => {
+    authPopup.style.display = "none"
+  })
+
+  
   //сервіси зміна тексту і стилю
     const cardFigures = document.querySelectorAll('.card-figure'),
       tripleClick = document.querySelector(".triple-click"),
@@ -256,6 +275,7 @@ carousel.addEventListener('touchmove', (e) => {
           }
         })
       })
+
   // зміна коментарів на радіокнопки
   const radioButtons = document.querySelectorAll('input[name="radio-coment"]'),
     comments = document.querySelectorAll('.coment')
@@ -280,6 +300,7 @@ carousel.addEventListener('touchmove', (e) => {
           switchComment()
       })
   })
+
   // сортування карток товарів
   const btnProduct = document.querySelectorAll(".card-cta"),
     categories = ["branding", "design", "development", "strategy"]
@@ -300,30 +321,26 @@ carousel.addEventListener('touchmove', (e) => {
     })
 
   // попап з текстом
-  const btnReadMore = document.querySelectorAll(".btn");
-  const btnCancel = document.querySelectorAll(".btn-cancel");
+  const btnReadMore = document.querySelectorAll(".btn"),
+    btnCancel = document.querySelectorAll(".btn-cancel"),
+    desriptMore = document.querySelectorAll(".description-more")[index]
   
   btnReadMore.forEach((item, index) => {
     item.addEventListener("click", function() {
-      const desriptMore = document.querySelectorAll(".description-more")[index];
-      desriptMore.classList.add("visible");
-      btnCancel[index].style.display = "block";
-      item.style.display = "none";
-    });
-  });
+      desriptMore.classList.add("visible")
+      btnCancel[index].style.display = "block"
+      item.style.display = "none"
+    })
+  })
   
   btnCancel.forEach((item, index) => {
     item.addEventListener("click", function() {
-      const desriptMore = document.querySelectorAll(".description-more")[index];
-      desriptMore.classList.remove("visible");
-      btnReadMore[index].style.display = "block";
-      item.style.display = "none";
-    });
-  });
-  
-
-  
+      desriptMore.classList.remove("visible")
+      btnReadMore[index].style.display = "block"
+      item.style.display = "none"
+    })
+  })
 
 })
 
-
+})
