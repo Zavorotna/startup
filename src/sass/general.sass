@@ -81,12 +81,13 @@ textarea
     justify-content: space-between
 
 .wrapper-mobile
+    padding: 0 15rem
     margin: 0 15rem
     +media(769)
         margin: 0
 
-
 .wrapper
+    padding: 0 15rem
     position: relative
     z-index: 1
     +media(769)
@@ -291,7 +292,8 @@ textarea
 
 .popup 
     display: none
-    width: 500rem
+    padding: 25rem
+    width: 300rem
     height: 350rem
     background-color: #f2f2f2
     padding: 20rem
@@ -301,6 +303,9 @@ textarea
     border: 1rem solid #ccc
     border-radius: 10rem
     transform: translateX(-50%)
+    +media(768)
+        width: 500rem
+        height: 350rem
     p
         padding-bottom: 25rem
         font-size: 14rem
@@ -309,7 +314,6 @@ textarea
         text-transform: uppercase
         text-align: center
 
-
 .drag-area 
     height: 100rem
     display: flex
@@ -317,21 +321,28 @@ textarea
     margin-bottom: 20rem
 
 .block 
-    width: 50rem
-    height: 50rem
+    width: 30rem
+    height: 30rem
     font-size: 14rem
     background-color: #d12525
     color: #fff
     text-align: center
-    line-height: 50rem
+    line-height: 30rem
     cursor: grab
+    +media(768)
+        width: 50rem
+        height: 50rem
+        line-height: 50rem
 
 .block-place
-    width: 100rem
-    height: 100rem
+    width: 80rem
+    height: 80rem
     border: 1px solid #e87979
     background-color: #e87979
     flex-wrap: wrap
+    +media(768)
+        width: 100rem
+        height: 100rem
 
 .block:active 
     cursor: grabbing
@@ -377,11 +388,21 @@ textarea
     transform: translateX(-50%)
 
 .service-description
-    padding-top: 69rem
+    padding: 69rem 0 100rem
+    justify-content: center
+    column-gap: 25rem
+    row-gap: 25rem
+    flex-wrap: wrap
+    +media(768)
+        justify-content: space-between
+        flex-wrap: nowrap
 
 .card-figure
+    max-width: 345rem
     flex-direction: column
     align-items: center
+    +media(768)
+        padding: 0 15rem
 
 .circle
     position: relative
@@ -415,6 +436,7 @@ textarea
     text-align: center
 
 .description
+    text-align: center
     font-family: "Roboto Slab"
     text-transform: none
 
@@ -422,27 +444,43 @@ textarea
     background-color: #f8f8f8
 
 .about-us-info
+    flex-wrap: wrap
     column-gap: 32rem
     row-gap: 32rem
+    justify-content: center
+    +media(768)
+        justify-content: space-between
+        flex-wrap: nowrap
 
 .info-block
-    padding: 70rem 0
+    padding: 20rem 0
     font-size: 14rem
     line-height: 1.7em
     color: #555555
     font-weight: 400
     font-family: "Roboto Slab"
+    +media(768)
+        padding: 70rem 0 
 
 .carousel-container
-    width: 100%
+    width: 250rem
     margin: 0 auto
     text-align: center
     position: relative
     overflow: hidden
+    +media(600)
+        width: 550rem
+    +media(850)
+        width: 850rem
+    +media(1140)
+        width: 100%
 
 .carousel
+    padding: 30rem 0 0 
     transition: transform 0.5s
     column-gap: 30rem
+    +media(768)
+        padding: 0
 
 .carousel-item
      transition: transform 0.5s ease-in-out
@@ -483,6 +521,7 @@ textarea
 
 .left
     left: 0
+
 .right
     right: 0
 
@@ -492,28 +531,44 @@ textarea
     justify-content: center
 
 .menu-work
-    column-gap: 30rem
+    padding: 0
+    flex-wrap: wrap
+    column-gap: 15rem
+    +media(460)
+        column-gap: 30rem
     a
-        font-size: 16rem
+        font-size: 12rem
         line-height: 1.5em
         color: #555
         font-weight: 400
         font-family: "Roboto Slab"
         transition: all .5s ease
+        +media(460)
+            font-size: 16rem
         &:hover
             color: #c0301c
 
 .brands 
-    justify-content: flex-start
+    padding-bottom: 100rem
+    justify-content: center
     flex-wrap: wrap
     column-gap: 30rem
     row-gap: 30rem
+    +media(1140)
+        justify-content: flex-start
 
 .img-cards 
     position: relative
+    width: 150rem
     max-height: 320rem
+    +media(768)
+        width: 250rem
+    +media(1170)
+        width: 100%
+    img
+        width: 100%
+        object-fit: cover
     
-
 .click-block
     display: none
     position: absolute
@@ -633,9 +688,20 @@ textarea
         transform: scale(1.1)
 
 .blog-card
+    flex-wrap: wrap
+    justify-content: center
     column-gap: 30rem
     row-gap: 30rem
+    +media(920)
+        justify-content: space-between
+        flex-wrap: nowrap
 
+.img
+    img
+        width: 100%
+        object-fit: cover
+        +media(768)
+            width: auto
 
 .date
     position: relative
@@ -693,7 +759,7 @@ textarea
   transition: max-height 1s ease
 
 
-.description,
+.description-blog,
 .description-more
     margin-bottom: 34rem
     font-size: 14rem
@@ -727,7 +793,6 @@ textarea
 
 .partner-section
     background-color: #f8f8f8
-
 
 .partner-img
     position: relative
@@ -821,7 +886,10 @@ textarea
     cursor: pointer
 
 .contacts-form
+    flex-wrap: wrap
     column-gap: 100rem
+    +media(768)
+        flex-wrap: nowrap
     
 .contact
     padding-bottom: 15rem
@@ -877,11 +945,18 @@ textarea
     max-width: 750rem
 
 .input-block-display
+    flex-wrap: wrap
     column-gap: 30rem
+    row-gap: 30rem
     padding-bottom: 30rem
+    +media(980)
+        flex-wrap: nowrap
 
 .input-block
-    width: 320rem
+    min-width: 280rem
+    width: 100%
+    +media(980)
+        min-width: 320rem
 
 .textarea-block 
     padding-bottom: 20rem
@@ -908,7 +983,6 @@ textarea
         background-color: #555
         color: #fff
         
-
 .coment-form
     font-size: 12rem
     line-height: 1.7em

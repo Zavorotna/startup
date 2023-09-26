@@ -323,7 +323,7 @@ carousel.addEventListener('touchmove', (e) => {
   // попап з текстом
   const btnReadMore = document.querySelectorAll(".btn"),
     btnCancel = document.querySelectorAll(".btn-cancel"),
-    desriptMore = document.querySelectorAll(".description-more")[index]
+    desriptMore = document.querySelectorAll(".description-more")
   
   btnReadMore.forEach((item, index) => {
     item.addEventListener("click", function() {
