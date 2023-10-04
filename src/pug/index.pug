@@ -96,6 +96,8 @@ html(lang="en")
                                 +cardWorkers(workers.workers3)
                             .carousel-item
                                 +cardWorkers(workers.workers4)
+                            .carousel-item(style="filter: hue-rotate(90deg)")
+                                +cardWorkers(workers.workers3)
                         button#prevBtn.btn-carousel.left
                         button#nextBtn.btn-carousel.right
             section#works.wrapper 
@@ -130,22 +132,23 @@ html(lang="en")
                     .user
                         +blogCard(blog.user)
             section#clients.partner-section.section-head
-                .partner.d-flex.wrapper
-                    .deorham.partner-img
-                        picture 
-                            img(src="img/deorham.svg", alt="")
-                    .ratings.partner-img
-                        picture 
-                            img(src="img/ratings.svg", alt="") 
-                    .malik.partner-img
-                        picture 
-                            img(src="img/malik.svg", alt="") 
-                    .bcause.partner-img
-                        picture 
-                            img(src="img/bcause.svg", alt="") 
-                    .womgify.partner-img
-                        picture 
-                            img(src="img/womgify.svg", alt="") 
+                .partners-carousel
+                    .partner.d-flex.wrapper.carousel-partners
+                        .deorham.partner-img
+                            picture 
+                                img(src="img/deorham.svg", alt="")
+                        .ratings.partner-img
+                            picture 
+                                img(src="img/ratings.svg", alt="") 
+                        .malik.partner-img
+                            picture 
+                                img(src="img/malik.svg", alt="") 
+                        .bcause.partner-img
+                            picture 
+                                img(src="img/bcause.svg", alt="") 
+                        .womgify.partner-img
+                            picture 
+                                img(src="img/womgify.svg", alt="") 
                 .coments
                     p.coment.active#coment-main 
                         i Hvaing placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum”

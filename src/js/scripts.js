@@ -117,65 +117,80 @@ window.addEventListener('load', function(){
 
 // карусель працівників
   const carousel = document.querySelector('.carousel'),
-    prevButton = document.querySelector('#prevBtn'),
-    nextButton = document.querySelector('#nextBtn'),
-    items = [...document.querySelectorAll(".carousel-item")]
+      prevButton = document.querySelector('#prevBtn'),
+      nextButton = document.querySelector('#nextBtn'),
+      items = document.querySelectorAll(".carousel-item")
+
+  const itemWidth = items[0].offsetWidth + 30 
+
   let currentIndex = 0,
-    startX = 0,
-    isDragging = false
+      isAnimating = false
 
-carousel.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX
-    isDragging = true
-})
-
-carousel.addEventListener('touchmove', (e) => {
-    if (!isDragging) return
-
-    const currentX = e.touches[0].clientX
-    const deltaX = currentX - startX
-
-    if (Math.abs(deltaX) > 50) {
-        if (deltaX > 0) {
-            currentIndex--
-        } else {
-            currentIndex++
-        }
-
-        updateCarousel()
-        isDragging = false
+  function updateCarousel() {
+     while (carousel.firstChild) {
+        carousel.removeChild(carousel.firstChild);
     }
-})
+    const firstClone = items[items.length - 1].cloneNode(true)
+    firstClone.style.left = `-${itemWidth}px`
+    carousel.insertAdjacentElement("afterbegin", firstClone)
+  
+    for (let i = 0; i < items.length; i++) {
+      const itemIndex = (i + currentIndex) % items.length
+      const item = items[itemIndex].cloneNode(true)
+      item.style.left = i * itemWidth + "px"
+      carousel.appendChild(item)
+    }        
+  }
+
+  updateCarousel()
+
+  
+  function goToIndex(index) {
+    isAnimating = true
+    
+    const distance = -index * itemWidth
+    
+    currentIndex = (currentIndex + items.length + index) % items.length
+   
+    carousel.style.transition = 'transform .5s ease-in-out'
+    carousel.style.transform = `translateX(${distance}px)`
+    
+    setTimeout(() => {
+      carousel.style.transition = 'none'
+      carousel.style.transform = 'none'
+      isAnimating = false
+      updateCarousel()
+      }, 500)
+  }
 
   nextButton.addEventListener('click', () => {
-      currentIndex++
-      updateCarousel()
+    goToIndex(1)
   })
 
   prevButton.addEventListener('click', () => {
-      currentIndex--
-      updateCarousel()
+    goToIndex(-1)
   })
 
-  function updateCarousel() {
-    const numVisible = 4,
-      clones = []
+  let touchStartX = 0,
+    touchEndX = 0
 
-    while (carousel.firstChild) {
-        carousel.removeChild(carousel.firstChild)
+  carousel.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX
+  })
+
+  carousel.addEventListener('touchmove', (e) => {
+    touchEndX = e.touches[0].clientX
+  })
+
+  carousel.addEventListener('touchend', () => {
+    const touchDiff = touchStartX - touchEndX
+    if (touchDiff > 50) {
+      goToIndex(1)
+    } else if (touchDiff < -50) {
+      goToIndex(-1)
     }
+  })
 
-    for (let i = currentIndex; i < currentIndex + numVisible; i++) {
-        const cloneIndex = (i % items.length + items.length) % items.length,
-          clone = items[cloneIndex].cloneNode(true)
-        carousel.appendChild(clone)
-        clones.push(clone)
-    }
-
-    const translateXValue = -clones.findIndex(clone => clone === carousel.firstElementChild) * (clones[0].offsetWidth + 30)
-    carousel.style.transform = `translateX(${translateXValue}px)`
-}
-  
   //червоні блоки на картках
   const clickBlock = [...document.querySelectorAll(".img-cards")],
     textBlock = [...document.querySelectorAll(".text-block")],
@@ -192,73 +207,100 @@ carousel.addEventListener('touchmove', (e) => {
     })
   // попап з блокам
   const openPopupButton = document.querySelector("#openPopupButton"),
-    authPopup = document.querySelector("#authPopup"),
-    dragArea = document.querySelector("#dragArea"),
-    blocks = document.querySelectorAll(".block"),
-    blockPlaces = document.querySelectorAll(".block-place"),
-    statusMessage = document.querySelector("#statusMessage"),
-    tryAgainButton = document.querySelector("#tryAgainButton"),
-    closeButton = document.querySelector("#closeButton")
+  authPopup = document.querySelector("#authPopup"),
+  dragArea = document.querySelector("#dragArea"),
+  blocks = document.querySelectorAll(".block"),
+  blockPlaces = document.querySelectorAll(".block-place"),
+  statusMessage = document.querySelector("#statusMessage"),
+  tryAgainButton = document.querySelector("#tryAgainButton"),
+  closeButton = document.querySelector("#closeButton")
 
-  let draggedBlock = null
+let draggedBlock = null
 
-  function checkAuthorization() {
-      const [block1Place, block2Place, block3Place] = blockPlaces
+function checkAuthorization() {
+const [block1Place, block2Place, block3Place] = blockPlaces
 
-      const isAuthorized =
-          block1Place.contains(blocks[0]) &&
-          block1Place.contains(blocks[3]) &&
-          block1Place.contains(blocks[6]) &&
-          block2Place.contains(blocks[1]) &&
-          block2Place.contains(blocks[4]) &&
-          block2Place.contains(blocks[7]) &&
-          block3Place.contains(blocks[2]) &&
-          block3Place.contains(blocks[5]) &&
-          block3Place.contains(blocks[8])
+const isAuthorized =
+    block1Place.contains(blocks[0]) &&
+    block1Place.contains(blocks[3]) &&
+    block1Place.contains(blocks[6]) &&
+    block2Place.contains(blocks[1]) &&
+    block2Place.contains(blocks[4]) &&
+    block2Place.contains(blocks[7]) &&
+    block3Place.contains(blocks[2]) &&
+    block3Place.contains(blocks[5]) &&
+    block3Place.contains(blocks[8])
 
-      if (isAuthorized) {
-          authPopup.style.display = "none"
-          document.title = "Startup are welcome to you!"
-          statusMessage.innerText = "Woo-hoo! You get it! Authorization successful! Welcome!"
-      }
-  }
-
-  openPopupButton.addEventListener("click", () => {
-      authPopup.style.display = "block"
-      checkAuthorization()
-  })
-
-  blocks.forEach(block => {
-      block.addEventListener("dragstart", (e) => {
-          e.dataTransfer.setData("text/plain", block.getAttribute("data-order"))
-          draggedBlock = block
-      })
-  })
-
-  blockPlaces.forEach(place => {
-      place.addEventListener("dragover", (e) => {
-          e.preventDefault()
-      })
-
-      place.addEventListener("drop", (e) => {
-          e.preventDefault()
-          if (draggedBlock) {
-              place.appendChild(draggedBlock)
-              checkAuthorization()
-          }
-      })
-  })
-
-  // Повернення блоків до вихідного положення
-  tryAgainButton.addEventListener("click", () => {
-      blocks.forEach(block => {
-          dragArea.appendChild(block)
-      })
-  })
-
-  closeButton.addEventListener("click", () => {
+if (isAuthorized) {
     authPopup.style.display = "none"
+    document.title = "Startup are welcome to you!"
+    statusMessage.innerText = "Woo-hoo! You get it! Authorization successful! Welcome!"
+}
+}
+
+openPopupButton.addEventListener("click", () => {
+authPopup.style.display = "block"
+checkAuthorization()
+})
+
+blocks.forEach(block => {
+block.addEventListener("dragstart", (e) => {
+  e.dataTransfer.setData("text/plain", block.getAttribute("data-order"))
+  draggedBlock = block
+})
+
+block.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0]
+    e.preventDefault()
+    block.style.position = 'fixed'
+    block.style.left = touch.clientX - dragArea.getBoundingClientRect().left + 'px'
+    block.style.top = touch.clientY - dragArea.getBoundingClientRect().top + 50 + 'px'
+  }, false)
+  
+  block.addEventListener("touchmove", (e) => {
+    const touch = e.touches[0]
+    e.preventDefault()
+    block.style.position = 'fixed'
+    block.style.left = touch.clientX - dragArea.getBoundingClientRect().left + 'px'
+    block.style.top = touch.clientY - dragArea.getBoundingClientRect().top + 50 + 'px'
+}, false)
+
+})
+
+blockPlaces.forEach(place => {
+  place.addEventListener("touchend", () => {
+    if (draggedBlock) {
+      place.appendChild(draggedBlock)
+      checkAuthorization()
+    }
   })
+
+  place.addEventListener("dragover", (e) => {
+    e.preventDefault()
+  })
+  
+  place.addEventListener("drop", (e) => {
+    if (draggedBlock) {
+      place.appendChild(draggedBlock)
+      checkAuthorization()
+    }
+  })
+
+
+})
+
+tryAgainButton.addEventListener("touchstart", () => {
+  blocks.forEach(block => {
+      block.style.position = 'static'
+      dragArea.appendChild(block)
+  })
+  checkAuthorization()
+})
+
+closeButton.addEventListener("click", () => {
+  authPopup.style.display = "none"
+})
+
 
   
   //сервіси зміна тексту і стилю
@@ -302,32 +344,69 @@ carousel.addEventListener('touchmove', (e) => {
   })
 
   // сортування карток товарів
-  const btnProduct = document.querySelectorAll(".card-cta"),
-    categories = ["branding", "design", "development", "strategy"]
+  const btnProduct = document.querySelectorAll(".card-cta");
+  const categories = ["branding", "design", "development", "strategy"];
+  
+  // Отримуємо останній вибір з локального сховища при завантаженні сторінки
+  document.addEventListener("DOMContentLoaded", () => {
+    const lastSelectedCategory = localStorage.getItem("lastSelectedCategory");
+  
+    // Встановлюємо кольори кнопок
+    btnProduct.forEach(button => button.style.color = "#555");
+  
+    // Визначаємо вибір за замовчуванням
+    const defaultCategory = lastSelectedCategory || "#all";
+  
+    // Знаходимо відповідний елемент
+    const selectedItem = document.querySelector(`[data-href="${defaultCategory}"]`);
+  
+    // Встановлюємо вибір за замовчуванням
+    if (selectedItem) {
+      selectedItem.style.color = "#c0301c";
+    } else {
+      // Якщо вибір за замовчуванням не знайдено, встановлюємо для "All"
+      document.querySelector(`[data-href="#all"]`).style.color = "#c0301c";
+    }
+  
+    // Встановлюємо відображення елементів
+    categories.forEach(category => {
+      const elements = document.querySelectorAll(`.${category}`);
+      elements.forEach(element => {
+        element.style.display = defaultCategory === `#${category}` || defaultCategory === "#all" ? "flex" : "none";
+      });
+    });
+  });
   
   btnProduct.forEach(item => {
     item.addEventListener("click", evt => {
-      evt.preventDefault()
-      btnProduct.forEach(button => button.style.color = "#555")
-      item.style.color = evt.target === item ? "#c0301c" : "#555"
-      let id = evt.target.getAttribute("data-href")
+      evt.preventDefault();
+  
+      // Змінюємо кольори кнопок
+      btnProduct.forEach(button => button.style.color = "#555");
+      item.style.color = "#c0301c";
+  
+      let id = evt.target.getAttribute("data-href");
+  
+      // Зберігаємо останній вибір в локальному сховищі
+      localStorage.setItem("lastSelectedCategory", id);
   
       categories.forEach(category => {
-        const elements = document.querySelectorAll(`.${category}`)
+        const elements = document.querySelectorAll(`.${category}`);
         elements.forEach(element => {
-          element.style.display = id === `#${category}` || id === "#all" ? "flex" : "none"
-        })
-      })
-    })
+          element.style.display = id === `#${category}` || id === "#all" ? "flex" : "none";
+        });
+      });
+    });
+  
 
   // попап з текстом
-  const btnReadMore = document.querySelectorAll(".btn"),
+  const btnReadMore = document.querySelectorAll(".readmore"),
     btnCancel = document.querySelectorAll(".btn-cancel"),
     desriptMore = document.querySelectorAll(".description-more")
   
   btnReadMore.forEach((item, index) => {
     item.addEventListener("click", function() {
-      desriptMore.classList.add("visible")
+      desriptMore[index].classList.add("visible")
       btnCancel[index].style.display = "block"
       item.style.display = "none"
     })
@@ -335,7 +414,7 @@ carousel.addEventListener('touchmove', (e) => {
   
   btnCancel.forEach((item, index) => {
     item.addEventListener("click", function() {
-      desriptMore.classList.remove("visible")
+      desriptMore[index].classList.remove("visible")
       btnReadMore[index].style.display = "block"
       item.style.display = "none"
     })
@@ -343,4 +422,53 @@ carousel.addEventListener('touchmove', (e) => {
 
 })
 
+// карусель логотипів
+ 
+  const carouselPartners = document.querySelector('.carousel-partners'),
+    itemsImg = document.querySelectorAll(".partner-img"),
+    itemImgWidth = itemsImg[0].offsetWidth
+  let currentIndexImg = 0
+  let isAnimatingImg = false
+
+  function updateCarouselImg() {
+    carouselPartners.innerHTML = ''
+    
+    
+    for (let i = 0; i < itemsImg.length; i++) {
+      const cloneIndexImg = (i + currentIndexImg) % itemsImg.length,
+        cloneImg = itemsImg[cloneIndexImg].cloneNode(true)
+      cloneImg.style.left = i * itemImgWidth / 40 + "px"
+      carouselPartners.insertAdjacentElement("afterbegin", cloneImg)
+    }
+    const firstImg = itemsImg[itemsImg.length - 1].cloneNode(true)
+    firstImg.style.left =  `-${itemImgWidth / 70}px`
+    carouselPartners.insertAdjacentElement("afterbegin", firstImg)
+  }
+
+  updateCarouselImg()
+
+  function startAutoScroll(index) {
+    setInterval(() => {
+      if (!isAnimatingImg) {
+        currentIndexImg = (currentIndexImg + 1) % itemsImg.length
+        let distanceImg = index + itemImgWidth
+
+        carouselPartners.style.transition = "transform .5s ease"
+        carouselPartners.style.transform = `translateX(${distanceImg + 52}px)`
+
+        isAnimatingImg = true;
+
+        setTimeout(() => {
+          carouselPartners.style.transition = "none"
+          carouselPartners.style.transform = `translateX(0)`
+          isAnimatingImg = false
+          updateCarouselImg()
+        }, 500)
+      }
+    }, 2000)
+  }
+
+  startAutoScroll(currentIndexImg + 1)
+
+  
 })

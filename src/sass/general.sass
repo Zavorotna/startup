@@ -208,7 +208,7 @@ textarea
 
 .mobile
     position: fixed
-    top: -100%
+    top: -200%
     left: 0
     width: 100%
     height: 100%
@@ -476,14 +476,16 @@ textarea
         width: 100%
 
 .carousel
-    padding: 30rem 0 0 
-    transition: transform 0.5s
+    position: relative
+    width: 100%
+    height: 400rem
     column-gap: 30rem
     +media(768)
-        padding: 0
-
-.carousel-item
-     transition: transform 0.5s ease-in-out
+        padding: 0 
+        
+.carousel-item 
+    position: absolute
+    top: 0
 
 .figure-workers
     margin: 0
@@ -510,7 +512,7 @@ textarea
 
 .btn-carousel
     position: absolute
-    top: 39%
+    top: 30%
     width: 36rem
     height: 36rem
     background-color: #555
@@ -670,14 +672,14 @@ textarea
 
 .paralax-image
     position: absolute
-    top: 0
-    left: 0
+    top: -3rem
+    left: -20rem
     bottom: 0
-    width: 100%
+    width: 110%
     height: 100%
     background: url("../img/bcgsecond.png") no-repeat
-    background-position: center
-    background-size: 120% 150%
+    background-position: top left
+    background-size: 100% 150%
     
 
 .get-touch
@@ -749,15 +751,13 @@ textarea
     font-family: "Roboto Slab"
 
 .description-more 
-  max-height: 0
-  overflow: hidden
-  transition: max-height 1s ease
+    max-height: 0
+    overflow: hidden
+    transition: max-height 1s ease
 
-
-.description-more.visible 
-  max-height: 1000rem
-  transition: max-height 1s ease
-
+.visible 
+    max-height: 1000rem
+    transition: max-height 1s ease
 
 .description-blog,
 .description-more
@@ -791,15 +791,38 @@ textarea
 .btn-cancel
     display: none
 
+.partners-carousel
+    position: relative
+    top: 0
+    left: 50%
+    max-width: 1000rem
+    max-height: 300rem
+    overflow: hidden
+    transform: translateX(-50%)
+
 .partner-section
     background-color: #f8f8f8
 
+.partner
+    position: relative
+    left: -170rem
+    column-gap: 60rem
+    
 .partner-img
     position: relative
-    width: 142rem
-    height: 50rem
+    width: 160rem
+    height: 60rem
+    +media(375)
+        min-width: 100rem
+    +media(425)
+        min-width: 75rem
+    +media(768)
+        min-width: 112rem
+    +media(1024)
+        min-width: 142rem
     img
-        position: absolute
+        width: 100%
+        position: relative
         top: 50%
         left: 50%
         transform: translate(-50%, -50%)
@@ -951,7 +974,7 @@ textarea
     padding-bottom: 30rem
     +media(980)
         flex-wrap: nowrap
-
+        
 .input-block
     min-width: 280rem
     width: 100%
