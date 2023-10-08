@@ -118,8 +118,9 @@ window.addEventListener('load', function(){
 // карусель працівників
   const carousel = document.querySelector('.carousel'),
       prevButton = document.querySelector('#prevBtn'),
-      nextButton = document.querySelector('#nextBtn'),
-      items = document.querySelectorAll(".carousel-item")
+      nextButton = document.querySelector('#nextBtn')
+      
+    let items = [...document.querySelectorAll(".carousel-item")]
 
   const itemWidth = items[0].offsetWidth + 30 
 
@@ -127,16 +128,17 @@ window.addEventListener('load', function(){
       isAnimating = false
 
   function updateCarousel() {
-     while (carousel.firstChild) {
-        carousel.removeChild(carousel.firstChild);
+    while (carousel.firstChild) {
+      carousel.removeChild(carousel.firstChild);
     }
+
+    // items.push(items.shift())
     const firstClone = items[items.length - 1].cloneNode(true)
     firstClone.style.left = `-${itemWidth}px`
     carousel.insertAdjacentElement("afterbegin", firstClone)
   
     for (let i = 0; i < items.length; i++) {
-      const itemIndex = (i + currentIndex) % items.length
-      const item = items[itemIndex].cloneNode(true)
+      const item = items[i].cloneNode(true)
       item.style.left = i * itemWidth + "px"
       carousel.appendChild(item)
     }        
@@ -164,10 +166,12 @@ window.addEventListener('load', function(){
   }
 
   nextButton.addEventListener('click', () => {
+    items.push(items.shift())
     goToIndex(1)
   })
 
   prevButton.addEventListener('click', () => {
+    items.unshift(items.pop())
     goToIndex(-1)
   })
 
@@ -207,105 +211,118 @@ window.addEventListener('load', function(){
     })
   // попап з блокам
   const openPopupButton = document.querySelector("#openPopupButton"),
-  authPopup = document.querySelector("#authPopup"),
-  dragArea = document.querySelector("#dragArea"),
-  blocks = document.querySelectorAll(".block"),
-  blockPlaces = document.querySelectorAll(".block-place"),
-  statusMessage = document.querySelector("#statusMessage"),
-  tryAgainButton = document.querySelector("#tryAgainButton"),
-  closeButton = document.querySelector("#closeButton")
+    authPopup = document.querySelector("#authPopup"),
+    dragArea = document.querySelector("#dragArea"),
+    blocks = document.querySelectorAll(".block"),
+    blockPlaces = document.querySelectorAll(".block-place"),
+    statusMessage = document.querySelector("#statusMessage"),
+    tryAgainButton = document.querySelector("#tryAgainButton"),
+    closeButton = document.querySelector("#closeButton")
 
-let draggedBlock = null
+  let draggedBlock = null
 
-function checkAuthorization() {
-const [block1Place, block2Place, block3Place] = blockPlaces
+  function checkAuthorization() {
+    const [block1Place, block2Place, block3Place] = blockPlaces
 
-const isAuthorized =
-    block1Place.contains(blocks[0]) &&
-    block1Place.contains(blocks[3]) &&
-    block1Place.contains(blocks[6]) &&
-    block2Place.contains(blocks[1]) &&
-    block2Place.contains(blocks[4]) &&
-    block2Place.contains(blocks[7]) &&
-    block3Place.contains(blocks[2]) &&
-    block3Place.contains(blocks[5]) &&
-    block3Place.contains(blocks[8])
+    const isAuthorized =
+        block1Place.contains(blocks[0]) &&
+        block1Place.contains(blocks[3]) &&
+        block1Place.contains(blocks[6]) &&
+        block2Place.contains(blocks[1]) &&
+        block2Place.contains(blocks[4]) &&
+        block2Place.contains(blocks[7]) &&
+        block3Place.contains(blocks[2]) &&
+        block3Place.contains(blocks[5]) &&
+        block3Place.contains(blocks[8])
 
-if (isAuthorized) {
+    if (isAuthorized) {
+      localStorage.setItem("authorized", "true")
+      authPopup.style.display = "none"
+      document.title = "Startup are welcome to you!"
+      statusMessage.innerText = "Woo-hoo! You get it! Authorization successful! Welcome!"
+    }
+  }
+
+  const isAuthorized = localStorage.getItem("authorized");
+
+  if (isAuthorized === "true") {
     authPopup.style.display = "none"
     document.title = "Startup are welcome to you!"
     statusMessage.innerText = "Woo-hoo! You get it! Authorization successful! Welcome!"
-}
-}
+  }
 
-openPopupButton.addEventListener("click", () => {
-authPopup.style.display = "block"
-checkAuthorization()
-})
-
-blocks.forEach(block => {
-block.addEventListener("dragstart", (e) => {
-  e.dataTransfer.setData("text/plain", block.getAttribute("data-order"))
-  draggedBlock = block
-})
-
-block.addEventListener("touchstart", (e) => {
-    const touch = e.touches[0]
-    e.preventDefault()
-    block.style.position = 'fixed'
-    block.style.left = touch.clientX - dragArea.getBoundingClientRect().left + 'px'
-    block.style.top = touch.clientY - dragArea.getBoundingClientRect().top + 50 + 'px'
-  }, false)
-  
-  block.addEventListener("touchmove", (e) => {
-    const touch = e.touches[0]
-    e.preventDefault()
-    block.style.position = 'fixed'
-    block.style.left = touch.clientX - dragArea.getBoundingClientRect().left + 'px'
-    block.style.top = touch.clientY - dragArea.getBoundingClientRect().top + 50 + 'px'
-}, false)
-
-})
-
-blockPlaces.forEach(place => {
-  place.addEventListener("touchend", () => {
-    if (draggedBlock) {
-      place.appendChild(draggedBlock)
-      checkAuthorization()
-    }
+  openPopupButton.addEventListener("click", () => {
+    authPopup.style.display = "block"
+    checkAuthorization()
   })
 
-  place.addEventListener("dragover", (e) => {
-    e.preventDefault()
-  })
-  
-  place.addEventListener("drop", (e) => {
-    if (draggedBlock) {
-      place.appendChild(draggedBlock)
-      checkAuthorization()
-    }
-  })
-
-
-})
-
-tryAgainButton.addEventListener("touchstart", () => {
   blocks.forEach(block => {
-      block.style.position = 'static'
-      dragArea.appendChild(block)
+    block.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", block.getAttribute("data-order"))
+      draggedBlock = block
+    })
+
+    block.addEventListener("touchstart", (e) => {
+      e.preventDefault()
+      const touch = e.touches[0]
+        draggedBlock = block
+        block.style.position = 'fixed'
+        block.style.left = touch.clientX - dragArea.getBoundingClientRect().left + 'px'
+        block.style.top = touch.clientY - dragArea.getBoundingClientRect().top + 50 + 'px'
+    }, false)
+      
+    block.addEventListener("touchmove", (e) => {
+      e.preventDefault()
+      const touch = e.touches[0]
+      block.style.position = 'fixed'
+      block.style.left = touch.clientX - dragArea.getBoundingClientRect().left + 'px'
+      block.style.top = touch.clientY - dragArea.getBoundingClientRect().top + 50 + 'px'
+    }, false)
+
+    block.addEventListener("touchend", (e) => {
+      e.preventDefault()
+      const blockPosition = block.getBoundingClientRect()
+
+      blockPlaces.forEach(place => {
+        const placePosition = place.getBoundingClientRect()
+
+        if (blockPosition.left >= placePosition.left && blockPosition.left <= placePosition.right && blockPosition.top >= placePosition.top && blockPosition.top <= placePosition.bottom) {
+          place.appendChild(block)
+          block.style.position = "static"
+          checkAuthorization()
+        }
+      })
+    })
   })
-  checkAuthorization()
-})
 
-closeButton.addEventListener("click", () => {
-  authPopup.style.display = "none"
-})
+  blockPlaces.forEach(place => {
+    place.addEventListener("dragover", (e) => {
+      e.preventDefault()
+      console.log("+haha");
+    })
+    
+    place.addEventListener("drop", () => {
+      if (draggedBlock) {
+        place.appendChild(draggedBlock)
+        checkAuthorization()
+      }
+    })
+  })
 
+  tryAgainButton.addEventListener("click", () => {
+    blocks.forEach(block => {
+        block.style.position = 'static'
+        dragArea.appendChild(block)
+    })
+    checkAuthorization()
+  })
 
-  
-  //сервіси зміна тексту і стилю
-    const cardFigures = document.querySelectorAll('.card-figure'),
-      tripleClick = document.querySelector(".triple-click"),
+  closeButton.addEventListener("click", () => {
+    authPopup.style.display = "none"
+  })
+
+//сервіси зміна тексту і стилю
+    const tripleClick = document.querySelector(".triple-click"),
       heading = document.querySelectorAll('p.personal')
   
       tripleClick.addEventListener("click", function(e) {
@@ -329,7 +346,6 @@ closeButton.addEventListener("click", () => {
           comment.classList.remove('active')
       })
       comments[currentIndexRadio].classList.add('active')
-  
       currentIndexRadio = (currentIndexRadio + 1) % radioButtons.length
   }
   
@@ -344,60 +360,53 @@ closeButton.addEventListener("click", () => {
   })
 
   // сортування карток товарів
-  const btnProduct = document.querySelectorAll(".card-cta");
-  const categories = ["branding", "design", "development", "strategy"];
   
-  // Отримуємо останній вибір з локального сховища при завантаженні сторінки
-  document.addEventListener("DOMContentLoaded", () => {
-    const lastSelectedCategory = localStorage.getItem("lastSelectedCategory");
-  
-    // Встановлюємо кольори кнопок
-    btnProduct.forEach(button => button.style.color = "#555");
-  
-    // Визначаємо вибір за замовчуванням
-    const defaultCategory = lastSelectedCategory || "#all";
-  
-    // Знаходимо відповідний елемент
-    const selectedItem = document.querySelector(`[data-href="${defaultCategory}"]`);
-  
-    // Встановлюємо вибір за замовчуванням
-    if (selectedItem) {
-      selectedItem.style.color = "#c0301c";
-    } else {
-      // Якщо вибір за замовчуванням не знайдено, встановлюємо для "All"
-      document.querySelector(`[data-href="#all"]`).style.color = "#c0301c";
-    }
-  
-    // Встановлюємо відображення елементів
-    categories.forEach(category => {
-      const elements = document.querySelectorAll(`.${category}`);
-      elements.forEach(element => {
-        element.style.display = defaultCategory === `#${category}` || defaultCategory === "#all" ? "flex" : "none";
-      });
-    });
-  });
-  
+  const btnProduct = document.querySelectorAll(".card-cta"),
+    categories = ["branding", "design", "development", "strategy"],
+    lastSelectedCategory = localStorage.getItem("lastSelectedCategory")
+
+  let selectedCategory = lastSelectedCategory
+
+  btnProduct.forEach(button => button.style.color = "#555")
+
+  if (!lastSelectedCategory) {
+    localStorage.setItem("lastSelectedCategory", selectedCategory)
+  }
+
+  const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`)
+  console.log(selectedItem);
+  if (selectedItem) {
+    selectedItem.style.color = "#c0301c"
+    selectedItem.style.display = "flex"
+  } else {
+    
+  }
+
+  categories.forEach(category => {
+    const elements = document.querySelectorAll(`.${category}`)
+    elements.forEach(element => {
+      element.style.display = selectedCategory === `#${category}` || selectedCategory === "#all" ? "flex" : "none"
+    })
+  })
+
   btnProduct.forEach(item => {
     item.addEventListener("click", evt => {
-      evt.preventDefault();
-  
-      // Змінюємо кольори кнопок
-      btnProduct.forEach(button => button.style.color = "#555");
-      item.style.color = "#c0301c";
-  
-      let id = evt.target.getAttribute("data-href");
-  
-      // Зберігаємо останній вибір в локальному сховищі
-      localStorage.setItem("lastSelectedCategory", id);
-  
+      evt.preventDefault()
+
+      btnProduct.forEach(button => button.style.color = "#555")
+      item.style.color = "#c0301c"
+
+      let id = evt.target.getAttribute("data-href")
+
+      localStorage.setItem("lastSelectedCategory", id)
+      
       categories.forEach(category => {
-        const elements = document.querySelectorAll(`.${category}`);
+        const elements = document.querySelectorAll(`.${category}`)
         elements.forEach(element => {
-          element.style.display = id === `#${category}` || id === "#all" ? "flex" : "none";
-        });
-      });
-    });
-  
+          element.style.display = id === `#${category}` || id === "#all" ? "flex" : "none"
+        })
+      })
+    })
 
   // попап з текстом
   const btnReadMore = document.querySelectorAll(".readmore"),
@@ -424,51 +433,89 @@ closeButton.addEventListener("click", () => {
 
 // карусель логотипів
  
-  const carouselPartners = document.querySelector('.carousel-partners'),
-    itemsImg = document.querySelectorAll(".partner-img"),
-    itemImgWidth = itemsImg[0].offsetWidth
-  let currentIndexImg = 0
-  let isAnimatingImg = false
+  const carouselPartners = document.querySelector('.carousel-partners')
+
+  let  itemsImg = [...document.querySelectorAll(".partner-img")],
+    itemImgWidth = itemsImg[0].offsetWidth,
+    isAnimatingImg = false
 
   function updateCarouselImg() {
-    carouselPartners.innerHTML = ''
-    
-    
-    for (let i = 0; i < itemsImg.length; i++) {
-      const cloneIndexImg = (i + currentIndexImg) % itemsImg.length,
-        cloneImg = itemsImg[cloneIndexImg].cloneNode(true)
-      cloneImg.style.left = i * itemImgWidth / 40 + "px"
-      carouselPartners.insertAdjacentElement("afterbegin", cloneImg)
+
+    while (carouselPartners.firstChild) {
+      carouselPartners.removeChild(carouselPartners.firstChild);
     }
+    
+    itemsImg.unshift(itemsImg.pop())
+
     const firstImg = itemsImg[itemsImg.length - 1].cloneNode(true)
-    firstImg.style.left =  `-${itemImgWidth / 70}px`
+    firstImg.style.left = `-${itemImgWidth / 70}px`
     carouselPartners.insertAdjacentElement("afterbegin", firstImg)
+
+    for (let i = 0; i < itemsImg.length; i++) {
+      const cloneImg = itemsImg[i].cloneNode(true)
+      carouselPartners.appendChild(cloneImg)
+    }
   }
 
   updateCarouselImg()
 
   function startAutoScroll(index) {
     setInterval(() => {
-      if (!isAnimatingImg) {
-        currentIndexImg = (currentIndexImg + 1) % itemsImg.length
-        let distanceImg = index + itemImgWidth
+        
+      let distanceImg = itemImgWidth
 
-        carouselPartners.style.transition = "transform .5s ease"
-        carouselPartners.style.transform = `translateX(${distanceImg + 52}px)`
+      carouselPartners.style.transition = "transform .5s ease"
+      carouselPartners.style.transform = `translateX(${distanceImg + 52}px)`
 
-        isAnimatingImg = true;
+      isAnimatingImg = true
 
-        setTimeout(() => {
-          carouselPartners.style.transition = "none"
-          carouselPartners.style.transform = `translateX(0)`
-          isAnimatingImg = false
-          updateCarouselImg()
-        }, 500)
-      }
+      setTimeout(() => {
+        carouselPartners.style.transition = "none"
+        carouselPartners.style.transform = `translateX(0)`
+        isAnimatingImg = false
+        updateCarouselImg()
+      }, 500)
+      
     }, 2000)
   }
+  startAutoScroll(1)
 
-  startAutoScroll(currentIndexImg + 1)
+  //попап підтверждення інформації
+  const cancelPopap = document.querySelector(".cancel-popap"),
+    autorizedPopap = document.querySelector(".autorized-popap"),
+    submitForm = document.querySelector(".form-btn")
+    
 
-  
+  cancelPopap.addEventListener("click", () => {
+    autorizedPopap.style.opacity = "0"
+  })
+
+  function confirmRegistration() {
+
+    const name = document.querySelector('#name').value,
+      email = document.querySelector('#mail').value,
+      subject = document.querySelector('#subject').value,
+      companyName = document.querySelector('#companyName').value,
+      message = document.querySelector('#message').value
+
+    localStorage.setItem('userRegistrationData', JSON.stringify({ name, email, subject, companyName, message }));
+
+    autorizedPopap.style.opacity = "1"
+  }
+
+  submitForm.addEventListener('click', (e) => {
+    e.preventDefault()
+    confirmRegistration()
+  })
+
+  const userRegistrationData = JSON.parse(localStorage.getItem('userRegistrationData'))
+
+  if (userRegistrationData) {
+    document.querySelector('#name').value = userRegistrationData.name
+    document.querySelector('#mail').value = userRegistrationData.email
+    document.querySelector('#subject').value = userRegistrationData.subject
+    document.querySelector('#companyName').value = userRegistrationData.companyName
+    document.querySelector('#message').value = userRegistrationData.message
+  }
+
 })
