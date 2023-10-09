@@ -486,11 +486,11 @@ textarea
         
 .carousel-item 
     position: absolute
-    top: 0
+    top: 0        
 
 .figure-workers
     margin: 0
-    
+
 .worker-img
     position: relative
 
@@ -510,6 +510,29 @@ textarea
     font-weight: 400
     font-family: "Roboto Slab"
     text-align: center
+    
+.social-work
+    display: none        
+
+.position-work
+    position: absolute
+    top: 60%
+    left: 50%
+    transform: translate(-50%, -50%)
+
+.social-icon-work
+    position: relative
+    display: inline-block
+    width: 28rem
+    height: 28rem
+    &:hover
+        background-color: #c0301c
+    svg
+        position: absolute
+        top: 50%
+        left: 50%
+        fill: #fff
+        transform: translate(-50%, -50%)
 
 .btn-carousel
     position: absolute
@@ -520,13 +543,37 @@ textarea
     border: none
     opacity: 0.2
     transform: translateY(-50%)
+    transition: all 1s ease
     cursor: pointer
+    &:hover
+        opacity: 1
+        background-color: #c0301c
 
 .left
     left: 0
+    &::before
+        content: ""
+        position: absolute
+        top: 50%
+        left: 55%
+        width: 10rem
+        height: 10rem
+        border-top: 2px solid #ddd
+        border-left: 2px solid #ddd
+        transform: translate(-50%,-50%) rotate(-45deg)
 
 .right
     right: 0
+    &::before
+        content: ""
+        position: absolute
+        top: 50%
+        left: 45%
+        width: 10rem
+        height: 10rem
+        border-top: 2px solid #ddd
+        border-left: 2px solid #ddd
+        transform: translate(-50%,-50%) rotate(135deg)
 
 .work-nav
     width: 100%
@@ -1024,7 +1071,7 @@ textarea
     color: #c0301c
 
 .autorized-popap
-    opacity: 0
+    visibility: hidden
     position: absolute
     top: 50%
     left: 50%
@@ -1033,19 +1080,28 @@ textarea
     height: 300rem
     background-color: #ca786d
     border-radius: 15rem
-    transform: translate(-50%, -50%) 
-    transition: all 2s ease
+    transform: translate(-50%, -50%)
     z-index: 3
 
-.autorized-text
+.autorized-textBlock
     position: absolute
     top: 50%
     left: 0
-    text-align: center
-    padding: 25rem
-    font-size: 35rem
-    color: #fbf7f7
     transform: translateY(-50%)
+
+.autorized-text
+    padding: 15rem
+    font-size: 25rem
+    color: #fbf7f7
+    
+.name-data,
+.mail-data,
+.subject-data,
+.company-data
+    padding: 5rem 0 5rem 15rem
+    font-size: 20rem
+    color: #fbf7f7
+
 
 .cancel-popap
     position: absolute
@@ -1057,6 +1113,14 @@ textarea
     transform: rotate(-45deg)
     cursor: pointer
 
+.ok
+    position: absolute
+    bottom: 20rem
+    right: 20rem
+    font-size: 25rem
+    font-family: Arial, Helvetica, sans-serif
+    color: #fff
+    cursor: pointer
 
 .footer 
     background-color: #c0301c

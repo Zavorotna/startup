@@ -92,9 +92,9 @@ window.addEventListener('load', function(){
     const sectionBlocks = document.querySelectorAll("section");
   
     sectionBlocks.forEach(item => {
-      const itemTop = item.getBoundingClientRect().top - 40;
-      const itemBottom = item.getBoundingClientRect().bottom - 40;
-      const windowHeight = window.innerHeight;
+      const itemTop = item.getBoundingClientRect().top - 40,
+        itemBottom = item.getBoundingClientRect().bottom - 40,
+        windowHeight = window.innerHeight
   
       if (itemTop < windowHeight && itemBottom > 0) {
         item.style.opacity = 1;
@@ -119,8 +119,22 @@ window.addEventListener('load', function(){
   const carousel = document.querySelector('.carousel'),
       prevButton = document.querySelector('#prevBtn'),
       nextButton = document.querySelector('#nextBtn')
-      
-    let items = [...document.querySelectorAll(".carousel-item")]
+  //     socialWorks = document.querySelectorAll(".social-work"),
+  //     figureWorker = document.querySelectorAll(".figure-workers")
+  
+  // figureWorker.forEach(itemWorker => {
+  //   itemWorker.addEventListener("mouseenter", function() {
+  //     socialWorks.forEach(socialItem => {
+  //       socialItem.style.opacity = "1"
+  //     })
+  //   })
+  //   itemWorker.addEventListener("mouseleave", () => {
+  //     socialWorks.forEach(socialItem => {
+  //       socialItem.style.display = "none"
+  //     })
+  //   })
+  // })
+  let items = [...document.querySelectorAll(".carousel-item")]
 
   const itemWidth = items[0].offsetWidth + 30 
 
@@ -132,7 +146,6 @@ window.addEventListener('load', function(){
       carousel.removeChild(carousel.firstChild);
     }
 
-    // items.push(items.shift())
     const firstClone = items[items.length - 1].cloneNode(true)
     firstClone.style.left = `-${itemWidth}px`
     carousel.insertAdjacentElement("afterbegin", firstClone)
@@ -145,7 +158,6 @@ window.addEventListener('load', function(){
   }
 
   updateCarousel()
-
   
   function goToIndex(index) {
     isAnimating = true
@@ -370,6 +382,7 @@ window.addEventListener('load', function(){
   btnProduct.forEach(button => button.style.color = "#555")
 
   if (!lastSelectedCategory) {
+    selectedCategory = "#all"
     localStorage.setItem("lastSelectedCategory", selectedCategory)
   }
 
@@ -481,31 +494,48 @@ window.addEventListener('load', function(){
   startAutoScroll(1)
 
   //попап підтверждення інформації
+
   const cancelPopap = document.querySelector(".cancel-popap"),
     autorizedPopap = document.querySelector(".autorized-popap"),
-    submitForm = document.querySelector(".form-btn")
-    
+    submitForm = document.querySelector(".form-btn"),
+    nameData = document.querySelector(".name-data"),
+    mailData = document.querySelector(".mail-data"),
+    subjectData = document.querySelector(".subject-data"),
+    companyData = document.querySelector(".company-data"),
+    okAutorization = document.querySelector(".ok")
 
   cancelPopap.addEventListener("click", () => {
-    autorizedPopap.style.opacity = "0"
+    localStorage.removeItem('userRegistrationData')
+    autorizedPopap.style.visibility = "hidden"
   })
 
   function confirmRegistration() {
-
     const name = document.querySelector('#name').value,
       email = document.querySelector('#mail').value,
       subject = document.querySelector('#subject').value,
-      companyName = document.querySelector('#companyName').value,
-      message = document.querySelector('#message').value
+      companyName = document.querySelector('#companyName').value
 
-    localStorage.setItem('userRegistrationData', JSON.stringify({ name, email, subject, companyName, message }));
-
-    autorizedPopap.style.opacity = "1"
+    localStorage.setItem('userRegistrationData', JSON.stringify({ name, email, subject, companyName }));
   }
 
   submitForm.addEventListener('click', (e) => {
     e.preventDefault()
-    confirmRegistration()
+    
+    const name = document.querySelector('#name').value,
+      email = document.querySelector('#mail').value,
+      subject = document.querySelector('#subject').value,
+      companyName = document.querySelector('#companyName').value
+
+    nameData.innerText = `Name: ${name}`
+    mailData.innerText = `Email: ${email}`
+    subjectData.innerText = `Subject: ${subject}`
+    companyData.innerText = `Company Name: ${companyName}`
+    autorizedPopap.style.visibility = "visible"
+
+    okAutorization.addEventListener("click", function() {
+      confirmRegistration()
+      autorizedPopap.style.visibility = "hidden"
+    })
   })
 
   const userRegistrationData = JSON.parse(localStorage.getItem('userRegistrationData'))
@@ -515,7 +545,6 @@ window.addEventListener('load', function(){
     document.querySelector('#mail').value = userRegistrationData.email
     document.querySelector('#subject').value = userRegistrationData.subject
     document.querySelector('#companyName').value = userRegistrationData.companyName
-    document.querySelector('#message').value = userRegistrationData.message
   }
 
 })
