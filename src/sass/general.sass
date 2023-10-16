@@ -1,12 +1,13 @@
 @import components/mixin
 html
     font-size: 1px
+    +media(2200)
+        font-size: 2px
 
 body
     margin: 0
     padding: 0
     font-family: 'Montserrat'
-    overflow-x: hidden
     scroll-behavior: smooth
     
 ul
@@ -51,7 +52,6 @@ hr
 
 figure
     margin: 0
-    
 
 input,
 textarea
@@ -199,6 +199,9 @@ textarea
     &:hover::after 
         opacity: 1
         transform: scale(1)
+
+.basket
+    fill: #fff
 
 .burger-logo
     padding-top: 20rem
@@ -367,6 +370,83 @@ textarea
     text-align: center
     border-radius: 2rem
     border: 2rem solid #fff
+  
+.opacity-bgCart
+    position: fixed
+    top: 0
+    width: 100%
+    height: 100%
+    background-color: #392929
+    opacity: 0.7
+    z-index: 4
+
+.basket-display
+    display: none
+
+.cart
+    position: fixed
+    padding: 25rem
+    top: 50%
+    left: 50%
+    max-width: 900rem
+    min-width: 520rem
+    max-height: 100%
+    background-color: #fff
+    border-radius: 10rem
+    transform: translate(-50%, -50%)
+    z-index: 6
+    h3,
+    p,
+    li
+        font-size: 20rem
+        color: #545454
+
+.carts-items
+    p
+        display: flex
+        justify-content: space-between
+        align-items: center
+        max-width: 520rem
+        padding: 20rem
+        text-align: start
+
+.card-pay
+    position: relative
+
+.remove-from-cart,
+.add-to-cart
+    position: absolute
+    transform: translateY(-50%)
+    cursor: pointer
+
+.remove-from-cart
+    top: 50%
+    right: 14%
+
+.add-to-cart
+    top: 50%
+    right: 2%
+
+.cancel-basket
+    position: absolute
+    top: 20rem
+    right: 30rem
+    transform: rotate(-45deg)
+    cursor: pointer
+
+.enter-cart
+    display: inline-block
+    padding: 10rem
+    font-size: 15rem
+    color: #545454
+    border: 1px solid #545454
+    border-radius: 5rem
+    transition: all .5s ease
+    &:hover
+        color: #fff
+        background-color: #c0301c
+        border: 1px solid transparent
+    
 
 .section-head
     position: relative
@@ -464,7 +544,7 @@ textarea
         padding: 70rem 0 
 
 .carousel-container
-    width: 250rem
+    width: 260rem
     margin: 0 auto
     text-align: center
     position: relative
@@ -475,6 +555,8 @@ textarea
         width: 850rem
     +media(1140)
         width: 100%
+    +media(2200)
+        width: 100%
 
 .carousel
     position: relative
@@ -482,17 +564,20 @@ textarea
     height: 400rem
     column-gap: 30rem
     +media(768)
-        padding: 0 
+        padding: 0
         
 .carousel-item 
     position: absolute
-    top: 0        
+    top: 0
 
 .figure-workers
     margin: 0
+    width: 263rem
+    height: 100%
 
 .worker-img
     position: relative
+    width: 100%
 
 .name-worker
     padding: 21rem 0 15rem
@@ -525,6 +610,7 @@ textarea
     display: inline-block
     width: 28rem
     height: 28rem
+    transition: all .5s ease
     &:hover
         background-color: #c0301c
     svg
@@ -657,7 +743,8 @@ textarea
     text-align: center
     text-transform: none
 
-.descript-block
+.descript-block,
+.price
     padding-bottom: 27rem
     font-size: 12rem
     line-height: 2em
@@ -846,10 +933,16 @@ textarea
     position: relative
     top: 0
     left: 50%
-    max-width: 1000rem
+    max-width: 200rem
     max-height: 300rem
     overflow: hidden
     transform: translateX(-50%)
+    +media(425)
+        max-width: 425rem
+    +media(768)
+        max-width: 650rem
+    +media(1024)
+        max-width: 1000rem
 
 .partner-section
     background-color: #f8f8f8
@@ -859,18 +952,10 @@ textarea
     left: -170rem
     column-gap: 60rem
     
-.partner-img
+.partner-img  
     position: relative
-    width: 160rem
+    min-width: 142rem
     height: 60rem
-    +media(375)
-        min-width: 100rem
-    +media(425)
-        min-width: 75rem
-    +media(768)
-        min-width: 112rem
-    +media(1024)
-        min-width: 142rem
     img
         width: 100%
         position: relative
@@ -1102,25 +1187,23 @@ textarea
     font-size: 20rem
     color: #fbf7f7
 
+.cancel-popap,
+.ok
+    display: inline-block
+    position: absolute
+    bottom: 0rem
+    padding: 15rem
+    font-size: 15rem
+    color: #fff
+    cursor: pointer
+    &:hover
+        color: #360d08
 
 .cancel-popap
-    position: absolute
-    top: 20rem
-    right: 20rem
-    font-size: 35rem
-    font-family: Arial, Helvetica, sans-serif
-    color: #fff
-    transform: rotate(-45deg)
-    cursor: pointer
+    left: 20rem
 
 .ok
-    position: absolute
-    bottom: 20rem
     right: 20rem
-    font-size: 25rem
-    font-family: Arial, Helvetica, sans-serif
-    color: #fff
-    cursor: pointer
 
 .footer 
     background-color: #c0301c

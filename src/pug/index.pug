@@ -5,7 +5,7 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport" content="width=device-width, uset-scalabel=yes, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0")
         link(rel="stylesheet", href="css/styles.css")
-        title Document
+        title Startup - your Favourite Creative Agency Template
     body 
         include components/mixin
         header#home.parallax-header.fixed-header
@@ -23,6 +23,16 @@ html(lang="en")
                         span.bord
                     .mobile-menu.mobile#mobile 
                         +menu(mainMenu)
+            .bcg-cart
+            div#cart.cart.basket-display
+                p.cancel-basket +
+                h3 Корзина
+                hr
+                div#cart-items.carts-items
+                hr
+                .d-flex
+                    p#cart-total Загальна сума: $0
+                    a(href="#").enter-cart Замовити
             .start-info.d-flex 
                 p.welcome-text#statusMessage Welcome to STARTUP
                 h1 Your Favourite Creative Agency Template
@@ -221,8 +231,8 @@ html(lang="en")
                             p.mail-data 
                             p.subject-data
                             p.company-data
-                        p.cancel-popap +
-                        p.ok OK
+                        p.ok Accept
+                        p.cancel-popap Cancel
         footer.footer 
             .footer-block.d-flex
                 .social.d-flex
