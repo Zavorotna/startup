@@ -3,13 +3,29 @@ window.addEventListener('load', function () {
   // фіксований хедер
   window.addEventListener('scroll', function () {
     const scrollFixed = document.querySelector(".fixed-navigation"),
-      navigationHeader = document.querySelector(".navigation")
+      navigationHeader = document.querySelector(".navigation"),
+      cartPosition = document.querySelector(".basket-cta"),
+      mediaQuery = window.matchMedia('(max-width: 840px)'),
+      svgElement = document.querySelector(".basket")
+  
     if (window.scrollY > 0) {
       scrollFixed.classList.add('scrolled')
       navigationHeader.style.top = "0"
+      cartPosition.style.top = "10rem"
+      
+      // Змінюємо заливку SVG, якщо медіа-запит підходить
+      if (mediaQuery.matches) {
+        cartPosition.style.top = "35rem"
+        svgElement.style.fill = "#af4f37"
+      }
     } else {
       scrollFixed.classList.remove('scrolled')
       navigationHeader.style.top = ""
+      cartPosition.style.top = ""
+  
+      if (mediaQuery.matches) {
+        svgElement.style.fill = "#fff"
+      }
     }
   })
 
@@ -17,7 +33,6 @@ window.addEventListener('load', function () {
   const parallaxBg = document.querySelector('.parallax-bg'),
     opacityBg = document.querySelector('.opacity-bg'),
     parallaxImage = document.querySelector('.paralax-image'),
-    parallaxContainer = document.querySelector('.parallax-header'),
     sensitivity = 100
 
   window.addEventListener('scroll', () => {
@@ -35,7 +50,7 @@ window.addEventListener('load', function () {
     const offsetX = mouseX / sensitivity,
       offsetY = mouseY / sensitivity
 
-    // Застосовуємо трансформацію зображення
+    //трансформація зображення
     parallaxBg.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
     opacityBg.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
     parallaxImage.style.backgroundPosition = `${offsetX}rem ${offsetY}rem`
@@ -50,6 +65,11 @@ window.addEventListener('load', function () {
     this.classList.toggle('active'),
       mobileMenu.classList.toggle('activemobile')
   })
+
+  function closeBurgerMenu() {
+    burger.classList.remove('active');
+    mobileMenu.classList.remove('activemobile');
+  }
 
   // скролл до секцій
   const navLinks = [...document.querySelectorAll(".nav-menu")]
@@ -79,6 +99,7 @@ window.addEventListener('load', function () {
 
           if (Math.abs(remainingDistance) <= tolerance || Math.abs(scrollStep) <= tolerance) {
             clearInterval(interval)
+            closeBurgerMenu()
           } else {
             window.scrollBy(0, scrollStep)
           }
@@ -87,6 +108,7 @@ window.addEventListener('load', function () {
 
     })
   })
+  
   //scroll до блоків
   function animateSectionBlock() {
     const sectionBlocks = document.querySelectorAll("section")
@@ -217,9 +239,11 @@ window.addEventListener('load', function () {
       redBlock[index].classList.toggle("active-red")
       textBlock[index].classList.toggle("active-text")
     }
-    clickBlock.addEventListener('click', function () {
-      redBlockView()
-    })
+
+    // clickBlock.addEventListener('click', function () {
+    //   redBlockView()
+    // })
+
     clickBlock.addEventListener('mouseenter', function () {
       redBlockView()
     })
@@ -688,11 +712,13 @@ window.addEventListener('load', function () {
     const itemIndex = cart.items.findIndex((cartItem) => cartItem.datakey === item.datakey)
     if (itemIndex !== -1) {
       cart.items[itemIndex].quantity++
+      updateCart()
+      saveCartToLocalStorage(cart)
     } else {
       cart.items.push({ ...item, quantity: 1 })
+      updateCart()
+      saveCartToLocalStorage(cart)
     }
-    updateCart()
-    saveCartToLocalStorage(cart)
   }
   
   function removeFromCart(itemIndex) {
@@ -737,27 +763,29 @@ window.addEventListener('load', function () {
       countElementCarts.textContent = `${item.quantity}`
 
       payElementSum.textContent = `${item.head} - ${item.price}`
+
       listItem.appendChild(imgItem)
-      listItem.appendChild(plusElement)
-      listItem.appendChild(deleteElement)
+      countElementCarts.appendChild(plusElement)
+      countElementCarts.appendChild(deleteElement)
       listItem.appendChild(payElementSum)
       listItem.appendChild(countElementCarts)
       cartItemsList.appendChild(listItem)
       
       total += parseFloat(item.price.replace('$', '')) * item.quantity
       
-      const addToCartButtons = document.querySelectorAll('.add-to-cart')
-      
-      addToCartButtons.forEach(addButton => {
-        addButton.addEventListener('click', (e) => {
-          e.preventDefault()
-          const itemIndex = addButton.getAttribute('data-item-key')
-          addToCart(cardBlock[itemIndex])
-          price(cardBlock[itemIndex].price)
-        })
-      })
     })
     
+    const addToCartButtons = document.querySelectorAll('.add-to-cart')
+    
+    addToCartButtons.forEach(addButton => {
+      addButton.addEventListener('click', (e) => {
+        e.preventDefault()
+        const itemIndex = addButton.getAttribute('data-item-key')
+        addToCart(cardBlock[itemIndex])
+        price(cardBlock[itemIndex].price)
+      })
+    })
+
     cartTotal.textContent = `Загальна сума: $${total.toFixed(2)}`
     const removeEl = document.querySelectorAll(".remove-from-cart")
   
@@ -781,7 +809,6 @@ window.addEventListener('load', function () {
     ctaAddBasket.addEventListener("click", (e) => {
       e.preventDefault()
       const itemKey = ctaAddBasket.getAttribute("data-item-key")
-      console.log(itemKey);
       addToCart(cardBlock[itemKey])
       price(cardBlock[itemKey].price)
     })

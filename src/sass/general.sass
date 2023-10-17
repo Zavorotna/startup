@@ -125,7 +125,7 @@ textarea
     align-items: center
     row-gap: 20rem
     z-index: 5
-    +media(769)
+    +media(840)
         padding: 10rem 65rem
         width: 90%
         position: fixed
@@ -135,11 +135,11 @@ textarea
         align-items: center
 
 .fixed-header
-    +media(768)
+    +media(840)
         padding-top: 100rem
 
 .fixed-navigation
-    +media(768)
+    +media(840)
         position: fixed
         top: 0
         left: 0
@@ -161,7 +161,7 @@ textarea
 
 .decstop-menu 
     display: none
-    +media(769)
+    +media(840)
         display: block
         width: 100%
 
@@ -170,10 +170,11 @@ textarea
     flex-direction: column
     row-gap: 20rem
     align-items: center
-    +media(768)
+    +media(840)
         flex-direction: row
         column-gap: 40rem
         align-items: center
+        padding-right: 70rem
 
 .nav-menu
     position: relative
@@ -206,8 +207,8 @@ textarea
 .burger-logo
     padding-top: 20rem
     align-items: center
-    z-index: 2
-    +media(769)
+    z-index: 5
+    +media(840)
         display: none
 
 .mobile
@@ -218,10 +219,10 @@ textarea
     height: 100%
     background-color: #af4f37
     transition: all 1s ease
-    z-index: 2
+    z-index: 4
     li
         margin: 0
-    +media(769)
+    +media(840)
         display: none
 
 .mobile-menu
@@ -239,15 +240,15 @@ textarea
     padding: 20rem 0
     width: 30rem
     height: 30rem
-    z-index: 3
+    z-index: 5
     cursor: pointer
-    +media(769)
+    +media(840)
         display: none
         
 .burger-fix
     position: fixed
     top: 20rem
-    right: 0
+    right: 60rem
 
 .bord
     display: block
@@ -389,17 +390,29 @@ textarea
     top: 50%
     left: 50%
     max-width: 900rem
-    min-width: 520rem
-    max-height: 100%
+    min-width: 220rem
+    max-height: 90%
     background-color: #fff
     border-radius: 10rem
     transform: translate(-50%, -50%)
+    overflow-y: scroll
     z-index: 6
+    +media(768)
+        min-width: 520rem
     h3,
     p,
     li
         font-size: 20rem
         color: #545454
+
+.cart::-webkit-scrollbar 
+    width: 10rem
+    background-image: linear-gradient(transparent 45%, #efd7d7 55%, #efd7d7 65%, transparent 55%)
+
+
+.cart::-webkit-scrollbar-thumb 
+    border-radius: 20rem
+    background-color: #e77d7d
 
 .carts-items
     p
@@ -421,11 +434,11 @@ textarea
 
 .remove-from-cart
     top: 50%
-    right: 14%
+    right: 50%
 
 .add-to-cart
     top: 50%
-    right: 2%
+    left: 50%
 
 .cancel-basket
     position: absolute
@@ -446,7 +459,19 @@ textarea
         color: #fff
         background-color: #c0301c
         border: 1px solid transparent
-    
+
+.cart-mobile
+    position: fixed
+    z-index: 5
+
+.basket-cta
+    position: fixed
+    top: 35rem
+    right: 25rem
+    // box-shadow: 0 0 5rem 2rem #af4f37
+    +media(840)
+        top: 30rem
+        right: 50rem
 
 .section-head
     position: relative
@@ -554,8 +579,8 @@ textarea
     +media(850)
         width: 850rem
     +media(1140)
-        width: 100%
-    +media(2200)
+        width: 1140rem
+    +media(2340)
         width: 100%
 
 .carousel
@@ -706,82 +731,102 @@ textarea
         object-fit: cover
     
 .click-block
-    display: none
-    position: absolute
-    width: 100%
-    height: 100%
-    background-color: #c0301c
-    top: 0
-    left: 0
-    opacity: 0.7
-    z-index: 3
+    +media(768)
+        display: none
+        position: absolute
+        width: 100%
+        height: 100%
+        background-color: #c0301c
+        top: 0
+        left: 0
+        opacity: 0.7
+        z-index: 3
 
 .active-red
-    display: block
+    +media(768)
+        display: block
 
 .text-block
-    display: none
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    z-index: 3
+    display: block
+    +media(768)
+        display: none
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        z-index: 3
 
 .active-text
-    display: flex
+    +media(768)
+        display: flex
 
 .head-block
-    padding: 0 0 16rem
-    font-size: 18rem
-    line-height: 1.33em
-    color: #fff
+    padding: 5rem 0
+    font-size: 14rem
     font-weight: 400
     text-align: center
+    line-height: 1.33em
     text-transform: none
+    +media(768)
+        padding: 0 0 16rem
+        font-size: 18rem
+        color: #fff
 
 .descript-block,
 .price
-    padding-bottom: 27rem
-    font-size: 12rem
-    line-height: 2em
-    color: #ffffff
+    font-size: 10rem
+    color: #525252
     font-weight: 400
     font-family: "Roboto Slab"
     text-align: center
+    +media(768)
+        padding-bottom: 27rem
+        font-size: 12rem
+        line-height: 2em
+        color: #fff
         
+.cta-viev    
+    text-align: center
+
 .cta-block
     position: relative
     display: inline-block
     padding: 8rem 32rem 8rem 21rem
-    font-size: 14rem
+    color: #c0301c
+    font-size: 10rem
+    font-weight: 400
+    font-family: "Roboto Slab"
     line-height: 1.7em
     text-transform: uppercase
     background-color: #fff
-    color: #c0301c
-    font-weight: 400
-    font-family: "Roboto Slab"
     &::before
         position: absolute
         content: ""
         top: 50%
         right: 18rem
-        width: 8rem
-        height: 8rem
+        width: 5rem
+        height: 5rem
         border-top: 1rem solid #c0301c
         border-left: 1px solid #c0301c
         transform: translateY(-50%) rotate(135deg)
+    +media(768)
+        font-size: 14rem
+        &::before
+            width: 8rem
+            height: 8rem
 
-.progect-talk
+.project-talk
+    overflow: hidden
     position: relative
     padding: 100rem 0
     flex-direction: column
     align-items: center
     justify-content: center
-    z-index: 4
+    z-index: 3
     p
         position: relative
         padding-bottom: 72rem
