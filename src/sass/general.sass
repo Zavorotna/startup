@@ -75,6 +75,7 @@ textarea
     max-width: 700rem
     min-height: 105rem
     max-height: 250rem
+    resize: vertical
 
 .d-flex
     display: flex
@@ -203,6 +204,7 @@ textarea
 
 .basket
     fill: #fff
+    filter: drop-shadow(1rem 1rem 2rem #af4f37)
 
 .burger-logo
     padding-top: 20rem
@@ -237,7 +239,6 @@ textarea
     position: relative
     display: block
     margin: 0 25rem
-    padding: 20rem 0
     width: 30rem
     height: 30rem
     z-index: 5
@@ -248,14 +249,18 @@ textarea
 .burger-fix
     position: fixed
     top: 20rem
-    right: 60rem
+    right: 0rem
 
 .bord
-    display: block
+    position: absolute
+    top: 50%
+    left: 0
+    // display: block
     background-color: #fff
     width: 100%
     height: 2rem 
-    box-shadow: 0 0 5rem 2rem #af4f37
+    filter: drop-shadow(1rem 1rem 2rem #af4f37)
+    transform: translateY(-50%)
     z-index: 5
     &::before,
     &::after
@@ -263,17 +268,14 @@ textarea
         content: ""
         background-color: #fff
         width: 100%
-        height: 2rem 
-        box-shadow: 0 0 5rem 2rem #af4f37
+        height: 2rem
         z-index: 5
-
-.bord
     &::before
-        top: 32rem
+        top: 10rem
         right: 0
     &::after
         right: 0
-        bottom: 22rem
+        bottom: 10rem
 
 .active
     padding: 0
@@ -283,9 +285,11 @@ textarea
         &::before
             top: 28rem
             transform: rotate(45deg)
+            box-shadow: 0 0 0  #fff
         &::after
             bottom: 0
             transform: rotate(-45deg)
+            box-shadow: 0 0 0  #fff
                 
 .start-info
     position: relative
@@ -353,11 +357,14 @@ textarea
     cursor: grabbing
 
 .welcome-text
-    font-size: 48rem
+    font-size: 28rem
     text-transform: uppercase
     color: #fff
     font-weight: 400
     text-align: center
+    +media(768)
+        font-size: 48rem
+
 
 .cta
     position: relative
@@ -371,7 +378,41 @@ textarea
     text-align: center
     border-radius: 2rem
     border: 2rem solid #fff
-  
+    transition: all .5s ease-in-out
+    &:hover
+        transform: scale(1.1)
+
+.cart-mobile
+    position: fixed
+    z-index: 5
+
+.basket-cta
+    position: fixed
+    top: 35rem
+    right: 60rem
+    transition: all .5s ease-in-out
+    +media(840)
+        top: 30rem
+        right: 50rem
+    &:hover
+        transform: scale(1.1)
+
+.cart-circle
+    position: absolute
+    bottom: 0
+    right: 0
+    // padding: 5rem
+    background-color: #fff
+    border-radius: 50%
+
+.cart-count
+    display: inline-block
+    width: 16rem
+    height: 16rem
+    font-size: 12rem
+    text-align: center
+    color: #000
+
 .opacity-bgCart
     position: fixed
     top: 0
@@ -459,19 +500,6 @@ textarea
         color: #fff
         background-color: #c0301c
         border: 1px solid transparent
-
-.cart-mobile
-    position: fixed
-    z-index: 5
-
-.basket-cta
-    position: fixed
-    top: 35rem
-    right: 25rem
-    // box-shadow: 0 0 5rem 2rem #af4f37
-    +media(840)
-        top: 30rem
-        right: 50rem
 
 .section-head
     position: relative
@@ -925,6 +953,12 @@ textarea
     font-family: "Montserrat"
     text-align: center
 
+.product-item 
+  position: absolute
+  top: -100px
+  transition: top 0.5s 
+
+
 .name-recent
     font-size: 13rem
     line-height: 1.7em
@@ -1059,7 +1093,7 @@ textarea
     width: 13rem
     height: 13rem
     border-radius: 50%
-    padding-left: 25rem
+    padding-left: 6rem
     display: inline-block
     cursor: pointer
 
@@ -1201,54 +1235,54 @@ textarea
     color: #c0301c
 
 .autorized-popap
-    visibility: hidden
-    position: absolute
+    display: none
+    position: fixed
     top: 50%
     left: 50%
     width: 100%
-    max-width: 500rem
-    height: 300rem
-    background-color: #ca786d
-    border-radius: 15rem
+    max-width: 300rem
+    min-height: 300rem
+    padding: 25rem 15rem
+    background-color: #fff
+    border-radius: 5rem
     transform: translate(-50%, -50%)
+    border: 2px solid #000
+    box-sizing: border-box
+    // transition: all .5s ease
     z-index: 3
+    +media(768)
+        max-width: 500rem
 
 .autorized-textBlock
-    position: absolute
-    top: 50%
-    left: 0
-    transform: translateY(-50%)
+    padding-bottom: 20rem
 
 .autorized-text
-    padding: 15rem
-    font-size: 25rem
-    color: #fbf7f7
+    padding: 15rem 0
+    font-size: 20rem
+    color: #000
     
 .name-data,
 .mail-data,
 .subject-data,
 .company-data
-    padding: 5rem 0 5rem 15rem
-    font-size: 20rem
-    color: #fbf7f7
+    padding: 5rem 0
+    font-size: 18rem
+    color: #000
 
 .cancel-popap,
 .ok
     display: inline-block
-    position: absolute
     bottom: 0rem
+    margin-bottom: 15rem
     padding: 15rem
     font-size: 15rem
-    color: #fff
+    color: #000
     cursor: pointer
+    border: 1px solid #000
+    transition: all .5s ease
     &:hover
-        color: #360d08
-
-.cancel-popap
-    left: 20rem
-
-.ok
-    right: 20rem
+        color: #fff
+        background-color: #000
 
 .footer 
     background-color: #c0301c

@@ -1,31 +1,27 @@
 window.addEventListener('load', function () {
+  const cartCircle = document.querySelector('#cart-circle'),
+  cartCount = document.querySelector('#cart-count')
 
   // фіксований хедер
-  window.addEventListener('scroll', function () {
+  document.addEventListener('scroll', function () {
     const scrollFixed = document.querySelector(".fixed-navigation"),
       navigationHeader = document.querySelector(".navigation"),
       cartPosition = document.querySelector(".basket-cta"),
-      mediaQuery = window.matchMedia('(max-width: 840px)'),
-      svgElement = document.querySelector(".basket")
+      mediaQuery = window.matchMedia('(max-width: 840px)')
   
     if (window.scrollY > 0) {
       scrollFixed.classList.add('scrolled')
       navigationHeader.style.top = "0"
       cartPosition.style.top = "10rem"
-      
-      // Змінюємо заливку SVG, якщо медіа-запит підходить
+
       if (mediaQuery.matches) {
         cartPosition.style.top = "35rem"
-        svgElement.style.fill = "#af4f37"
       }
+
     } else {
       scrollFixed.classList.remove('scrolled')
       navigationHeader.style.top = ""
       cartPosition.style.top = ""
-  
-      if (mediaQuery.matches) {
-        svgElement.style.fill = "#fff"
-      }
     }
   })
 
@@ -80,7 +76,7 @@ window.addEventListener('load', function () {
 
       let id = evt.target.getAttribute("data-href"),
         targetSection = document.querySelector(id),
-        targetOffset = targetSection.offsetTop + 40
+        targetOffset = targetSection.offsetTop + 20
 
       if (id) {
         let stopScroll = function stopScroll() {
@@ -96,14 +92,14 @@ window.addEventListener('load', function () {
           const remainingDistance = targetOffset - window.scrollY,
             scrollStep = remainingDistance * 0.1,
             tolerance = 1
-
-          if (Math.abs(remainingDistance) <= tolerance || Math.abs(scrollStep) <= tolerance) {
+            
+            if (Math.abs(remainingDistance) <= tolerance || Math.abs(scrollStep) <= tolerance) {
             clearInterval(interval)
-            closeBurgerMenu()
           } else {
             window.scrollBy(0, scrollStep)
           }
         }, 30)
+        closeBurgerMenu()
       }
 
     })
@@ -114,8 +110,8 @@ window.addEventListener('load', function () {
     const sectionBlocks = document.querySelectorAll("section")
 
     sectionBlocks.forEach(item => {
-      const itemTop = item.getBoundingClientRect().top - 40,
-        itemBottom = item.getBoundingClientRect().bottom - 40,
+      const itemTop = item.getBoundingClientRect().top - 20,
+        itemBottom = item.getBoundingClientRect().bottom - 20,
         windowHeight = window.innerHeight
 
       if (itemTop < windowHeight && itemBottom > 0) {
@@ -221,8 +217,10 @@ window.addEventListener('load', function () {
   carousel.addEventListener('touchend', () => {
     const touchDiff = touchStartX - touchEndX
     if (touchDiff > 50) {
+      items.push(items.shift())
       goToIndex(1)
     } else if (touchDiff < -50) {
+      items.unshift(items.pop())
       goToIndex(-1)
     }
   })
@@ -240,10 +238,6 @@ window.addEventListener('load', function () {
       textBlock[index].classList.toggle("active-text")
     }
 
-    // clickBlock.addEventListener('click', function () {
-    //   redBlockView()
-    // })
-
     clickBlock.addEventListener('mouseenter', function () {
       redBlockView()
     })
@@ -251,6 +245,7 @@ window.addEventListener('load', function () {
       redBlockView()
     })
   })
+
   // попап з блокам
   const openPopupButton = document.querySelector("#openPopupButton"),
     authPopup = document.querySelector("#authPopup"),
@@ -386,27 +381,34 @@ window.addEventListener('load', function () {
     comments = document.querySelectorAll('.coment')
   let currentIndexRadio = 0
 
-  function switchComment() {
-    radioButtons[currentIndexRadio].checked = true
+  function switchComment(index) {
+    radioButtons[index].checked = true
     comments.forEach((comment) => {
       comment.classList.remove('active')
     })
-    comments[currentIndexRadio].classList.add('active')
-    currentIndexRadio = (currentIndexRadio + 1) % radioButtons.length
+    comments[index].classList.add('active')
+    currentIndexRadio = index
   }
 
-  const intervalRadio = setInterval(switchComment, 3000)
+  function startInterval() {
+    return setInterval(() => {
+      currentIndexRadio = (currentIndexRadio + 1) % radioButtons.length
+      switchComment(currentIndexRadio)
+    }, 3000)
+  }
 
+  let intervalRadio = startInterval()
+  
   radioButtons.forEach((radioButton, index) => {
     radioButton.addEventListener('change', () => {
       clearInterval(intervalRadio)
-      currentIndexRadio = index
-      switchComment()
+      switchComment(index)
+      intervalRadio = startInterval()
     })
   })
 
-  // сортування карток товарів
 
+  // сортування карток товарів
   const btnProduct = document.querySelectorAll(".card-cta"),
     categories = ["branding", "design", "development", "strategy"],
     lastSelectedCategory = localStorage.getItem("lastSelectedCategory")
@@ -505,8 +507,8 @@ window.addEventListener('load', function () {
 
   updateCarouselImg()
 
-  function startAutoScroll(index) {
-    setInterval(() => {
+  function startAutoScroll() {
+    autoScrollInterval = setInterval(() => {
 
       let distanceImg = itemImgWidth
 
@@ -524,7 +526,20 @@ window.addEventListener('load', function () {
 
     }, 2000)
   }
-  startAutoScroll(1)
+
+  function stopAutoScroll() {
+    clearInterval(autoScrollInterval)
+  }
+
+  carouselPartners.addEventListener('mouseenter', () => {
+    stopAutoScroll()
+  })
+
+  carouselPartners.addEventListener('mouseleave', () => {
+    startAutoScroll()
+  })
+
+  startAutoScroll()
 
   //попап підтверждення інформації
 
@@ -539,7 +554,7 @@ window.addEventListener('load', function () {
 
   cancelPopap.addEventListener("click", () => {
     localStorage.removeItem('userRegistrationData')
-    autorizedPopap.style.visibility = "hidden"
+    autorizedPopap.style.display = "none"
   })
 
   function confirmRegistration() {
@@ -563,11 +578,11 @@ window.addEventListener('load', function () {
     mailData.innerText = `Email: ${email}`
     subjectData.innerText = `Subject: ${subject}`
     companyData.innerText = `Company Name: ${companyName}`
-    autorizedPopap.style.visibility = "visible"
+    autorizedPopap.style.display = "block"
 
     okAutorization.addEventListener("click", function () {
       confirmRegistration()
-      autorizedPopap.style.visibility = "hidden"
+      autorizedPopap.style.display = "none"
     })
   })
 
@@ -608,8 +623,6 @@ window.addEventListener('load', function () {
         head: "Hair Dresser",
         descript: "Branding",
         price: "10$",
-        cta: "View",
-        href: "#",
         datakey: "hair",
     },
     bird: {
@@ -619,8 +632,6 @@ window.addEventListener('load', function () {
         head: "Hope",
         descript: "Branding",
         price: "15$",
-        cta: "View",
-        href: "#",
         datakey: "bird",
     },
     notebook: {
@@ -630,8 +641,6 @@ window.addEventListener('load', function () {
         head: "Work place",
         descript: "Work place",
         price: "60$",
-        cta: "View",
-        href: "#",
         datakey: "notebook",
     },
     photo: {
@@ -641,8 +650,6 @@ window.addEventListener('load', function () {
         head: "Photo",
         descript: "Branding",
         price: "50$",
-        cta: "View",
-        href: "#",
         datakey: "photo",
     },
     bycicle: {
@@ -652,8 +659,6 @@ window.addEventListener('load', function () {
         head: "Bycicle",
         descript: "Branding",
         price: "40$",
-        cta: "View",
-        href: "#",
         datakey: "bycicle",
     },
     note: {
@@ -663,8 +668,6 @@ window.addEventListener('load', function () {
         head: "Work place",
         descript: "Branding",
         price: "25%",
-        cta: "View",
-        href: "#",
         datakey: "note",
     },
     table: {
@@ -674,8 +677,6 @@ window.addEventListener('load', function () {
         head: "Work place",
         descript: "Branding",
         price: "30$",
-        cta: "View",
-        href: "#",
         datakey: "table",
 
     },
@@ -686,8 +687,6 @@ window.addEventListener('load', function () {
         head: "Work",
         descript: "Branding",
         price: "15$",
-        cta: "View",
-        href: "#",
         datakey: "canceliaria",
     },
     events: {
@@ -697,8 +696,6 @@ window.addEventListener('load', function () {
         head: "Events",
         descript: "Branding",
         price: "35$",
-        cta: "View",
-        href: "#",
         datakey: "events",
     }
   }
@@ -787,6 +784,14 @@ window.addEventListener('load', function () {
     })
 
     cartTotal.textContent = `Загальна сума: $${total.toFixed(2)}`
+    //кружечок із товарами
+    if (cart.items.length > 0) {
+      cartCircle.style.display = 'block'
+      cartCount.textContent = cart.items.length
+    } else {
+      cartCircle.style.display = 'none'
+    }
+
     const removeEl = document.querySelectorAll(".remove-from-cart")
   
     removeEl.forEach(itemEl => {
@@ -808,9 +813,35 @@ window.addEventListener('load', function () {
   ctaBlock.forEach((ctaAddBasket) => {
     ctaAddBasket.addEventListener("click", (e) => {
       e.preventDefault()
-      const itemKey = ctaAddBasket.getAttribute("data-item-key")
-      addToCart(cardBlock[itemKey])
-      price(cardBlock[itemKey].price)
+      const itemKey = ctaAddBasket.getAttribute("data-item-key"),
+        imgClone = document.querySelectorAll(`.card-block-img[data-item-key="${itemKey}"`)[0]
+
+      cloneImgCart = imgClone.cloneNode(true)
+      document.body.appendChild(cloneImgCart)
+
+      const cartPositionTop = bascketOpen.getBoundingClientRect().top,
+        cartPositionLeft = bascketOpen.getBoundingClientRect().left,
+        originalImgPosition = imgClone.getBoundingClientRect()
+        console.log(cartPositionLeft, cartPositionTop);
+
+      cloneImgCart.style.position = "fixed"
+      cloneImgCart.style.zIndex = "7"
+      cloneImgCart.style.left = originalImgPosition.left + "px"
+      cloneImgCart.style.top = originalImgPosition.top + "px"
+      cloneImgCart.style.transition = "3s";
+
+      setTimeout(() => {
+        cloneImgCart.style.left = cartPositionLeft - 165 + "px"
+        cloneImgCart.style.top = cartPositionTop - 145 + "px"
+        cloneImgCart.style.transform = "scale(0.1)"
+      }, 10)
+
+      setTimeout(() => {
+        // cloneImgCart.style.display = "none";
+        document.body.removeChild(cloneImgCart);
+        addToCart(cardBlock[itemKey]);
+        price(cardBlock[itemKey].price);
+      }, 3000)
     })
   })
   
@@ -824,4 +855,6 @@ window.addEventListener('load', function () {
     cart.total = savedCart.total
     updateCart()
   }
+  
+  
 })

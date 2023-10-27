@@ -188,19 +188,19 @@ mixin menuWork(workMenu)
 
     }
 
-mixin cardMenu(cardBlock) 
+mixin cardMenu(cardBlock)
     figure.figure(class=cardBlock.class)
         figcaption.img-cards
             picture
-                img(src=cardBlock.img, alt=cardBlock.alt class="card-block-img")
+                img(src=cardBlock.img, alt=cardBlock.alt, data-item-key=cardBlock.datakey, class="card-block-img")
             .click-block
             .d-flex.text-block.mobile-text
                 h2.head-block #{cardBlock.head}
                 p.descript-block #{cardBlock.descript}
                 p.price #{cardBlock.price}
-                p.cta-viev 
-                    a.cta-block(href=cardBlock.href, data-item-key=cardBlock.datakey) #{cardBlock.cta}
- 
+                p.cta-view
+                    a.cta-block(href=cardBlock.href, data-item-key=cardBlock.datakey, data-item-price=cardBlock.price) #{cardBlock.cta}
+
 -
     let blog = {
         startup: {

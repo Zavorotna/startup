@@ -1,0 +1,94 @@
+{
+    "cardBlock": [
+        {
+            "id": "hair",
+            "class": "branding",
+            "img": "img/hair.webp",
+            "alt": "hair",
+            "head": "Hair Dresser",
+            "descript": "Branding",
+            "price": "10$",
+            "datakey": "hair"
+        },
+        {
+            "id": "bird",
+            "class": "branding",
+            "img": "img/bird.webp",
+            "alt": "bird",
+            "head": "Hope",
+            "descript": "Branding",
+            "price": "15$",
+            "datakey": "bird"
+        },
+        {
+            "id": "notebook",
+            "class": "design",
+            "img": "img/notebook.webp",
+            "alt": "notebook",
+            "head": "Work place",
+            "descript": "Work place",
+            "price": "60$",
+            "datakey": "notebook"
+        },
+        {
+            "id": "photo",
+            "class": "development",
+            "img": "img/photo.webp",
+            "alt": "photo",
+            "head": "Photo",
+            "descript": "Branding",
+            "price": "50$",
+            "datakey": "photo"
+        },
+        {
+            "id": "bycicle",
+            "class": "development",
+            "img": "img/bycicle.webp",
+            "alt": "bycicle",
+            "head": "Bycicle",
+            "descript": "Branding",
+            "price": "40$",
+            "datakey": "bycicle"
+        },
+        {
+            "id": "note",
+            "class": "strategy",
+            "img": "img/note.webp",
+            "alt": "note",
+            "head": "Work place",
+            "descript": "Branding",
+            "price": "25%",
+            "datakey": "note"
+        },
+        {
+            "id": "table",
+            "class": "branding",
+            "img": "img/table.webp",
+            "alt": "table",
+            "head": "Work place",
+            "descript": "Branding",
+            "price": "30$",
+            "datakey": "table"
+        },
+        {
+            "id": "canceliaria",
+            "class": "strategy",
+            "img": "img/canceliaria.webp",
+            "alt": "cancelaria",
+            "head": "Work",
+            "descript": "Branding",
+            "price": "15$",
+            "datakey": "canceliaria"
+        },
+        {
+            "id": "events",
+            "class": "strategy",
+            "img": "img/events.webp",
+            "alt": "events",
+            "head": "Events",
+            "descript": "Branding",
+            "price": "35$",
+            "datakey": "events"
+        }
+    ]
+}
